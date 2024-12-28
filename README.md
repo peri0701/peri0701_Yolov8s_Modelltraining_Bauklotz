@@ -1,1 +1,1 @@
-# Bauklotz---Objekterkennungsmodell
+# Bauklotz-Objekterkennungsmodell
