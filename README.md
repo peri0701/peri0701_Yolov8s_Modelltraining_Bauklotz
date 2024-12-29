@@ -27,22 +27,41 @@ Roboflow bietet eine effiziente Plattform, die diesen Prozess durch einfache Ver
 
 **Schritt 1: Projekt erstellen:**
 Um ein neues Projekt zu erstellen, ist zunächst die Einrichtung eines Roboflow-Kontos erforderlich. Anschließend kann im Roboflow-Dashboard ein Projekt angelegt werden, wobei der passende Projekttyp, wie beispielsweise Objekterkennung, ausgewählt werden sollte:
+
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(2).gif?raw=true" alt="Demo" width="600">
 
 **Schritt 2: Bilder hochladen:**
 Im nächsten Schritt können die Daten in das neu erstellte Projekt hochgeladen werden. 
-Beim Hochladen eines bereits annotierten Datensatzes erkennt das Dashboard automatisch die Bilder und zugehörigen Annotationen.
+Beim Hochladen eines bereits annotierten Datensatzes erkennt das Dashboard automatisch die Bilder und zugehörigen Annotationen:
+
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(6).gif?raw=true" alt="Demo" width="600">
+---
 
-**Schritt 3: Labeln:**
-Neben der Möglichkeit, Bilder manuell zu annotieren, bietet Roboflow eine Auto-Labeling-Funktion an, die im . Diese ermöglicht es, durch die Beschreibung eines Objekts Annotationen automatisch auf den Bildern zu erstellen. Automatisch gelabelte Bilder werden anschließend zur Review bereitgestellt, wo sie genehmigt oder abgelehnt werden können, um weitere Anpassungen vorzunehmen.
+**Schritt 3: Labeln & Annotation:**
 
-## 📹 Demonstrationsvideo
-
+- **Manuelles Annotieren:**
+Bilder können manuell annotiert werden, indem Objekte im Bild markiert und mit passenden Labels versehen werden. Diese Methode bietet volle Kontrolle über die Präzision der Annotationen, erfordert jedoch mehr Zeit und Aufwand.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(3).gif?raw=true" alt="Demo" width="600">
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(4).gif?raw=true).gif?raw=true" alt="Demo" width="600">
+
+- **Auto-Labeling:**
+Als Alternative zum manuellen Annotieren bietet Roboflow eine Auto-Labeling-Funktion, die den Annotierungsprozess erheblich beschleunigen kann. Hierbei werden Annotationen automatisch erstellt, indem Objekte im Bild beschrieben werden. Die automatisch gelabelten Bilder werden zur Review bereitgestellt, wo sie genehmigt oder abgelehnt werden können, um weitere Anpassungen vorzunehmen.
+Hinweis: Die Auto-Labeling-Funktion befindet sich derzeit in der Beta-Version und wird kontinuierlich weiterentwickelt.
+
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(9).gif?raw=true" alt="Demo" width="600">
+
+**Schritt 4: Neue Datensatzversion erstellen**
+Nachdem Bilder und Annotationen hinzugefügt wurden, kann eine neue Version des Datensatzes generiert werden. Dabei besteht die Möglichkeit, den Datensatz zu skalieren (empfohlen: 640x640 für die spätere Modellnutzung) sowie optional Vorverarbeitungs- und Augmentationsmethoden hinzuzufügen, um die Vielfalt und Robustheit zu erhöhen. Diese Anpassungen können die Modellleistung verbessern, sind jedoch nicht zwingend erforderlich.
+
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(5).gif?raw=true" alt="Demo" width="600">
+
+**Schritt 5: Datensatz exportieren**
+Sobald eine Datensatzversion generiert wurde, steht der Datensatz zum Export bereit. Dieser kann in verschiedenen Formaten, wie beispielsweise YOLOv8, heruntergeladen werden, um ihn für das Training in einem Notebook oder einer anderen Umgebung zu nutzen.
+
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(4).gif?raw=true.gif?raw=true" alt="Demo" width="600">
+
+
+
 
 
 
