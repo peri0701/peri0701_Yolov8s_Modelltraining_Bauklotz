@@ -5,13 +5,12 @@
 Willkommen auf der Github Seite zu meiner **Bachelorarbeit**:  
 **Entwicklung einer KI-basierten Objekterkennungsapplikation für einen Industrieroboter**.  
 
-Diese Seite dient dazu, den Prozess vom Beginn bishin zur Ausführung eines Objekterkennungsmodells auf dem Raspberry Pi festzuhalten, mit der Möglichkeit anhand der rauskopierbaren Befehle und hinterlegten Dokumente auch sicher ans Ziel zu kommen. 
-
-Da ich im laufe dieser praktischen Arbeit auch von den Github Seiten profitiert habe, möchte ich ebenfalls die Inhalte und Ergebnisse meiner Arbeit strukturiert und übersichtlich darstellen. Ziel ist es, alle relevanten Schritte – von der Datenerstellung über das Modelltraining bis hin zur Implementierung – klar zu dokumentieren und zentral zugänglich zu machen.
+Da ich im Rahmen meiner praktischen Arbeit sehr von den Github Seiten profitiert habe, möchte ich die Inhalte und Ergebnisse meiner Arbeit auf dieser Seite hier strukturiert und übersichtlich darstellen. 
+Ziel ist es, alle relevanten Schritte – von der Datenerstellung über das Modelltraining bis hin zur Implementierung – klar zu dokumentieren und zentral zugänglich zu machen.
 
 ---
 
-## 🎯 Ziel der Seite
+## 🎯 Übersicht
 
 Im Rahmen meiner Bachelorarbeit habe ich ein Yolov8s Modell für die Objekterkennung mit Raspberry Pi 5, dem Raspberry PI AI Kit entwickelt.  
 Diese GitHub-Seite bietet:
@@ -20,7 +19,7 @@ Diese GitHub-Seite bietet:
 
 ---
 
-## 📂 Projektübersicht
+## 📂 Projektphasen
 
 ### 1. **Datenerstellung**
 - **Repository-Link**: [Dataset Creation and Annotation](https://github.com/YourUsername/Dataset-Creation)
@@ -38,7 +37,6 @@ Diese GitHub-Seite bietet:
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(6).gif?raw=true" alt="Demo" width="600">
 
 
-
 ---
 
 ### 2. **Modelltraining**
@@ -50,7 +48,7 @@ Diese GitHub-Seite bietet:
 
 ---
 
-### 3. **Modellkonvertierung**
+### 3. **Modellausführung auf dem Raspberry PI 5**
 - **Repository-Link**: [Model Conversion for Hailo](https://github.com/YourUsername/Model-Conversion)
 - **Inhalt**:
   - Konvertierung von PyTorch-Modellen zu ONNX.
@@ -59,7 +57,7 @@ Diese GitHub-Seite bietet:
 
 ---
 
-### 4. **Implementierung**
+### 4. **Modellkonvertierung in ONNX**
 - **Repository-Link**: [Raspberry Pi Deployment](https://github.com/YourUsername/RaspberryPi-Deployment)
 - **Inhalt**:
   - Einrichtung der Hardware- und Softwareumgebung.
@@ -67,7 +65,22 @@ Diese GitHub-Seite bietet:
   - Performance-Analyse und Praxistests.
 
 ---
+### 4. **Modellkonvertierung in HEF**
+- **Repository-Link**: [Raspberry Pi Deployment](https://github.com/YourUsername/RaspberryPi-Deployment)
+- **Inhalt**:
+  - Einrichtung der Hardware- und Softwareumgebung.
+  - Integration der Kameramodule für die Objekterkennung.
+  - Performance-Analyse und Praxistests.
 
+---
+### 3. **Modellausführung auf dem Raspberry PI 5**
+- **Repository-Link**: [Model Conversion for Hailo](https://github.com/YourUsername/Model-Conversion)
+- **Inhalt**:
+  - Konvertierung von PyTorch-Modellen zu ONNX.
+  - Anpassung an das Hailo Execution Format (HEF).
+  - Umgang mit Kompatibilitätsproblemen und Lösungen.
+    
+---
 ## 📖 Zusätzliche Dokumentation
 
 Detaillierte Anleitungen und Hintergründe zu den einzelnen Schritten:
