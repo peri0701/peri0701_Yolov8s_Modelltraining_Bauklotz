@@ -29,6 +29,16 @@ Diese GitHub-Seite bietet:
   - Datenaufbereitung für Trainings-, Validierungs- und Testsets.
   - Best Practices und Herausforderungen.
 
+<img src="https://media.roboflow.com/preparing-custom-dataset-example/creating-project.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1672929799852" alt="Creating a Project" width="600">
+
+<img src="https://media.roboflow.com/preparing-custom-dataset-example/export.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1672943313709" alt="Exportieren eines Datensatzes" width="600">
+
+<img src="https://media.roboflow.com/preparing-custom-dataset-example/uploading-images.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1672929808290" alt="Hochladen von Bildern" width="600">
+
+<img src="https://media.roboflow.com/preparing-custom-dataset-example/generate-new-version.gif?ik-sdk-version=javascript-1.4.3&updatedAt=1673003597834" alt="Erstellen einer neuen Version" width="600">
+
+<img src="https://user-images.githubusercontent.com/26109316/210901980-04861efd-dfc0-4a01-9373-13a36b5e1df4.gif" alt="Beispiel für Bildannotation" width="600">
+
 ---
 
 ### 2. **Modelltraining**
