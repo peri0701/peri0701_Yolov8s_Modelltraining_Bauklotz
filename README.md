@@ -1,18 +1,15 @@
 ![Banner](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Banner_github.png)
 
-# Anwendungsbeispiel: Bauklotz - Datensatz Erstellung / Modelltraining & Implementierung
----
+
 Willkommen auf der Github Seite zu meiner **Bachelorarbeit**:  
 **Entwicklung einer KI-basierten Objekterkennungsapplikation für einen Industrieroboter**.  
-
-Da ich im Rahmen meiner praktischen Arbeit sehr von den Github Seiten profitiert habe, möchte ich die Inhalte und Ergebnisse meiner Arbeit auf dieser Seite hier strukturiert und übersichtlich darstellen. 
-Ziel ist es, alle relevanten Schritte – von der Datenerstellung über das Modelltraining bis hin zur Implementierung – klar zu dokumentieren und zentral zugänglich zu machen.
 
 ---
 
 ## 🎯 Übersicht
 
-Im Rahmen meiner Bachelorarbeit habe ich ein Yolov8s Modell für die Objekterkennung mit Raspberry Pi 5, dem Raspberry PI AI Kit entwickelt.  
+Im Rahmen meiner Bachelorarbeit habe ich ein Yolov8s Modell für die Objekterkennung eines Bauklotzes entwickelt für den Raspberry Pi 5, dem Raspberry PI AI Kit und der Raspberry PI Camera Module 3 Kamera.  
+
 Diese GitHub-Seite bietet:
 - **Zugriff auf wichtige Dokumente, Codes und Ergebnisse**, um die Arbeit für Leser und Mitwirkende nachvollziehbar zu machen.
 - **Verlinkungen zu detaillierten Repositories** für spezifische Themenbereiche.
@@ -20,21 +17,33 @@ Diese GitHub-Seite bietet:
 ---
 
 ## 📂 Projektphasen
+1. Benutzerdefinierte Datensatzerstellug in Roboflow
+2. 
+---
 
-### 1. **Datenerstellung**
-- **Repository-Link**: [Dataset Creation and Annotation](https://github.com/YourUsername/Dataset-Creation)
-- **Inhalt**:
-  - Bilderfassung und Annotation mit Tools wie Roboflow.
-  - Datenaufbereitung für Trainings-, Validierungs- und Testsets.
-  - Best Practices und Herausforderungen.
- 
+## 📸 Benutzerdefinierte Datensatzerstellug in Roboflow
+
+Roboflow bietet eine effiziente Plattform, die diesen Prozess durch einfache Verwaltung, Augmentationsoptionen und Exportmöglichkeiten in verschiedene Formate erheblich erleichtert. Im Folgenden wird Schritt für Schritt gezeigt, wie man auf Roboflow einen Datensatz erstellt, anpasst und für die weitere Nutzung herunterladen kann:
+
+**Schritt 1: Projekt erstellen:**
+Um ein neues Projekt zu erstellen, ist zunächst die Einrichtung eines Roboflow-Kontos erforderlich. Anschließend kann im Roboflow-Dashboard ein Projekt angelegt werden, wobei der passende Projekttyp, wie beispielsweise Objekterkennung, ausgewählt werden sollte:
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(2).gif?raw=true" alt="Demo" width="600">
+
+**Schritt 2: Bilder hochladen:**
+Im nächsten Schritt können die Daten in das neu erstellte Projekt hochgeladen werden. 
+Beim Hochladen eines bereits annotierten Datensatzes erkennt das Dashboard automatisch die Bilder und zugehörigen Annotationen.
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(6).gif?raw=true" alt="Demo" width="600">
+
+**Schritt 3: Labeln:**
+Neben der Möglichkeit, Bilder manuell zu annotieren, bietet Roboflow eine Auto-Labeling-Funktion an, die im . Diese ermöglicht es, durch die Beschreibung eines Objekts Annotationen automatisch auf den Bildern zu erstellen. Automatisch gelabelte Bilder werden anschließend zur Review bereitgestellt, wo sie genehmigt oder abgelehnt werden können, um weitere Anpassungen vorzunehmen.
+
 ## 📹 Demonstrationsvideo
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(2).gif?raw=true" alt="Demo" width="600">
+
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(3).gif?raw=true" alt="Demo" width="600">
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(4).gif?raw=true).gif?raw=true" alt="Demo" width="600">
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(5).gif?raw=true" alt="Demo" width="600">
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(6).gif?raw=true" alt="Demo" width="600">
+
 
 
 ---
