@@ -25,19 +25,19 @@ Diese GitHub-Seite bietet:
 
 Roboflow bietet eine effiziente Plattform, die diesen Prozess durch einfache Verwaltung, Augmentationsoptionen und Exportmöglichkeiten in verschiedene Formate erheblich erleichtert. Im Folgenden wird Schritt für Schritt gezeigt, wie man auf Roboflow einen Datensatz erstellt, anpasst und für die weitere Nutzung herunterladen kann:
 
-**Schritt 1: Projekt erstellen:**
-Um ein neues Projekt zu erstellen, ist zunächst die Einrichtung eines Roboflow-Kontos erforderlich. Anschließend kann im Roboflow-Dashboard ein Projekt angelegt werden, wobei der passende Projekttyp, wie beispielsweise Objekterkennung, ausgewählt werden sollte:
+### Schritt 1: Projekt erstellen:
+Um ein neues Projekt zu erstellen, ist zunächst die [Einrichtung eines Roboflow-Kontos](https://app.roboflow.com/login) erforderlich. Anschließend kann im Roboflow-Dashboard ein Projekt angelegt werden, wobei der passende Projekttyp, wie beispielsweise Objekterkennung, ausgewählt werden sollte:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(2).gif?raw=true" alt="Demo" width="600">
 
-**Schritt 2: Bilder hochladen:**
+### Schritt 2: Bilder hochladen:
 Im nächsten Schritt können die Daten in das neu erstellte Projekt hochgeladen werden. 
 Beim Hochladen eines bereits annotierten Datensatzes erkennt das Dashboard automatisch die Bilder und zugehörigen Annotationen:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(6).gif?raw=true" alt="Demo" width="600">
----
 
-**Schritt 3: Labeln & Annotation:**
+
+### Schritt 3: Labeln & Annotation:
 
 - **Manuelles Annotieren:**
 Bilder können manuell annotiert werden, indem Objekte im Bild markiert und mit passenden Labels versehen werden. Diese Methode bietet volle Kontrolle über die Präzision der Annotationen, erfordert jedoch mehr Zeit und Aufwand.
@@ -50,19 +50,17 @@ Hinweis: Die Auto-Labeling-Funktion befindet sich derzeit in der Beta-Version un
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(9).gif?raw=true" alt="Demo" width="600">
 
-**Schritt 4: Neue Datensatzversion erstellen**
+### Schritt 4: Neue Datensatzversion erstellen
 Nachdem Bilder und Annotationen hinzugefügt wurden, kann eine neue Version des Datensatzes generiert werden. Dabei besteht die Möglichkeit, den Datensatz zu skalieren (empfohlen: 640x640 für die spätere Modellnutzung) sowie optional Vorverarbeitungs- und Augmentationsmethoden hinzuzufügen, um die Vielfalt und Robustheit zu erhöhen. Diese Anpassungen können die Modellleistung verbessern, sind jedoch nicht zwingend erforderlich.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(5).gif?raw=true" alt="Demo" width="600">
 
-**Schritt 5: Datensatz exportieren**
-Sobald eine Datensatzversion generiert wurde, steht der Datensatz zum Export bereit. Dieser kann in verschiedenen Formaten, wie beispielsweise YOLOv8, heruntergeladen werden, um ihn für das Training in einem Notebook oder einer anderen Umgebung zu nutzen.
+### Schritt 5: Datensatz exportieren
+Sobald eine Datensatzversion generiert wurde, steht der Datensatz zum Export bereit. Dieser kann in verschiedenen Formaten heruntergeladen werden, beispielsweise im Format für YOLOv8, das für das Training in einem Notebook oder einer anderen Umgebung genutzt werden kann. 
+
+**Hinweis**: Im Tutorial wird exemplarisch das Exportieren für YOLOv5 PyTorch gezeigt, was den generellen Prozess veranschaulichen soll. Die Vorgehensweise ist jedoch ähnlich und lässt sich problemlos auf YOLOv8 übertragen.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(4).gif?raw=true.gif?raw=true" alt="Demo" width="600">
-
-
-
-
 
 
 ---
