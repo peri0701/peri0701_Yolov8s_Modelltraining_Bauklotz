@@ -1,4 +1,4 @@
-![Banner]()
+![Banner](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Banner_github.png)
 
 # Anwendungsbeispiel: Bauklotz - Datensatz Erstellung / Modelltraining & Implementierung
 ---
