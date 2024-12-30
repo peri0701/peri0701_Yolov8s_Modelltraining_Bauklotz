@@ -68,11 +68,7 @@ Sobald eine Datensatzversion generiert wurde, steht der Datensatz zum Export ber
 ---
 
 ## 2. **Modelltraining**
-- **Repository-Link**: [YOLO Model Training](https://github.com/YourUsername/Model-Training)
-- **Inhalt**:
-  - Training und Feinabstimmung von YOLO-Modellen.
-  - Nutzung von Google Colab für beschleunigtes Training.
-  - Optimierung von Trainingsparametern für höhere Genauigkeit.
+Das Modelltraining wird in Google Colab durchgeführt, um die Datei best.pt zu generieren. Diese Datei enthält die optimierte Version des trainierten Modells und wird im nächsten Schritt für die Modellausführung auf dem Raspberry Pi 5 benötigt. [![Öffnen in Colab](https://img.shields.io/badge/Open%20in%20Colab-grey?style=flat-square&logo=google-colab&logoColor=F9AB00&labelColor=grey&color=F9AB00)](https://colab.research.google.com/drive/1HF5Xfw9nkeZR3tsj--SE_Bm7zlQYZkEw?usp=sharing) 
 
 ---
 
