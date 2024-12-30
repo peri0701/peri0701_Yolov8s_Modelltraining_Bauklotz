@@ -18,11 +18,12 @@ Diese GitHub-Seite bietet:
 ---
 
 ## 📂 Projektphasen
-1. Benutzerdefinierte Datensatzerstellug in Roboflow
-2. 
+1. Erstellung eines benutzerdefinierten Datensatzes mit Roboflow
+2. Modelltraining
+3. Modellausführung auf dem Raspberry PI 5
 ---
 
-## 📸 Erstellung benutzerdefinierter Datensätze mit Roboflow
+## 📸 Erstellung eines benutzerdefinierten Datensatzes mit Roboflow
 [Roboflow](https://roboflow.com/) erleichtert die Datensatzerstellung durch intuitive Verwaltung, Augmentationsoptionen und den Export in verschiedene Formate. 
 Für Projekte, die auf vorhandene Daten angewiesen sind, bietet [Roboflow Universe](https://universe.roboflow.com/) mit über 110.000 offenen Datensätzen eine schnelle und vielseitige Alternative. Von annotierten Rissen in Beton bis hin zu Pflanzenbildern mit Krankheitsmarkierungen bietet die Plattform eine breite Auswahl und spart wertvolle Zeit.
 
@@ -73,11 +74,88 @@ Das Modelltraining wird in [Google Colab](https://colab.research.google.com/driv
 ---
 
 ### 3. **Modellausführung auf dem Raspberry PI 5**
-- **Repository-Link**: [Model Conversion for Hailo](https://github.com/YourUsername/Model-Conversion)
-- **Inhalt**:
-  - Konvertierung von PyTorch-Modellen zu ONNX.
-  - Anpassung an das Hailo Execution Format (HEF).
-  - Umgang mit Kompatibilitätsproblemen und Lösungen.
+Nach dem Erhalt der best.pt Datei, kann diese über Google Drive auf dem Raspberry Pi 5 heruntergeladen werden.
+
+Für die Nutzung müss zunächst eine virtuelle Umgebung aufgesetzt werden. Diese ermöglichen es, Projekte in isolierten virtuellen Räumen auszuführen, ohne das restliche Betriebssystem oder andere installierte Pakete zu beeinträchtigen. Dadurch können Änderungen und Experimente sicher durchgeführt werden, ohne Risiken für die Stabilität des Systems.
+
+Mit diesem Befehl wird eine neue virtuelle Umgebung mit dem Namen yolo_object erstellt. Die Option --system-site-packages sorgt dafür, dass die virtuelle Umgebung Zugriff auf die global installierten Python-Pakete erhält.
+```bash
+python3 -m venv --system-site-packages yolo_object 
+```
+
+Dieser Befehl aktiviert die zuvor erstellte virtuelle Umgebung yolo_object. Nach der Aktivierung laufen alle Python-Befehle und -Installationen innerhalb dieser isolierten Umgebung, um das Hauptsystem zu schütze
+```bash
+source yolo_object/bin/activate
+```
+
+Das System wird zunächst aktualisiert, um sicherzustellen, dass die neuesten Paketlisten geladen sind und zukünftige Installationen reibungslos verlaufen. Danach wird ein wichtiger Paketmanager für Python installiert, der die Verwaltung von Bibliotheken und Abhängigkeiten erleichtert. Schließlich wird dieser Paketmanager auf die neueste Version aktualisiert, um die Kompatibilität mit modernen Python-Bibliotheken sicherzustellen.
+```bash
+sudo apt update
+sudo apt install python3-pip -y
+pip install -U pip
+```
+
+Dieser Befehl installiert die YOLOv8-Bibliothek ultralytics zusammen mit allen für den Export notwendigen zusätzlichen Paketen. Damit wird die Objekterkennung mit YOLO auf dem Raspberry Pi ermöglicht.
+```bash
+pip install ultralytics[export]
+```
+
+Ein Neustart des Systems stellt sicher, dass alle Änderungen, wie die Installation von Paketen und Systemaktualisierungen, korrekt übernommen werden.
+```bash
+reboot
+```
+### Nutzung von Thonny
+
+```python
+import cv2
+from picamera2 import Picamera2
+from ultralytics import YOLO
+
+# Set up the camera with Picam
+picam2 = Picamera2()
+picam2.preview_configuration.main.size = (1280, 1280)
+picam2.preview_configuration.main.format = "RGB888"
+picam2.preview_configuration.align()
+picam2.configure("preview")
+picam2.start()
+
+# Load YOLOv8
+model = YOLO("yolov8n.pt")
+
+while True:
+    # Capture a frame from the camera
+    frame = picam2.capture_array()
+    
+    # Run YOLO model on the captured frame and store the results
+    results = model(frame)
+    
+    # Output the visual detection data, we will draw this on our camera preview window
+    annotated_frame = results[0].plot()
+    
+    # Get inference time
+    inference_time = results[0].speed['inference']
+    fps = 1000 / inference_time  # Convert to milliseconds
+    text = f'FPS: {fps:.1f}'
+
+    # Define font and position
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    text_size = cv2.getTextSize(text, font, 1, 2)[0]
+    text_x = annotated_frame.shape[1] - text_size[0] - 10  # 10 pixels from the right
+    text_y = text_size[1] + 10  # 10 pixels from the top
+
+    # Draw the text on the annotated frame
+    cv2.putText(annotated_frame, text, (text_x, text_y), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+
+    # Display the resulting frame
+    cv2.imshow("Camera", annotated_frame)
+
+    # Exit the program if q is pressed
+    if cv2.waitKey(1) == ord("q"):
+        break
+
+# Close all windows
+cv2.destroyAllWindows()
+```
 
 ---
 
