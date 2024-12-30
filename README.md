@@ -184,11 +184,49 @@ Nach dem Durchführen des Befehls, erhält man folgende Ausgabe und die Informat
 
 ---
 ### 4. **Modellkonvertierung in HEF**
-Um ein trainiertes Modell auf dem Raspberry Pi AI Kit mit der Hailo-Hardware auszuführen, ist eine Konvertierung des Modells in das Hailo Execution Format (HEF) notwendig. Da die Hailo-Software derzeit ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von WSL (Windows Subsystem for Linux) eine einfache Lösung für Windows-Nutzer. Mit WSL kann eine Ubuntu-Umgebung direkt auf Windows eingerichtet werden, wodurch der gesamte Prozess der Modellkonvertierung wie auf einem nativen Linux-System durchgeführt werden kann, dazu muss zunächst die Powershell geöffnet werden:
+
+### 1.Linux-Umfeld herstellen (WSL & Ubuntu 22.04)
+Um ein trainiertes Modell auf dem Raspberry Pi AI Kit mit der Hailo-Hardware auszuführen, ist eine Konvertierung des Modells in das Hailo Execution Format (HEF) notwendig. Da die Hailo-Software derzeit ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von WSL (Windows Subsystem for Linux) eine einfache Lösung für Windows-Nutzer. 
+
+Die Ubuntu 22.04-Version wird zusätzlich über den Microsoft Store heruntergeladen, um eine separate Linux-Applikation bereitzustellen. Obwohl dieser Schritt im ursprünglichen Tutorial nicht vorgesehen war, hat sich die Methode als erfolgreich erwiesen und bietet den Vorteil einer isolierten Arbeitsumgebung mit erhöhter Flexibilität – weshalb ich diese Methode ebenfalls empfehlen würde.
+
+Mit WSL kann eine Ubuntu-Umgebung direkt auf Windows eingerichtet werden, wodurch der gesamte Prozess der Modellkonvertierung wie auf einem nativen Linux-System durchgeführt werden kann, dazu muss zunächst die Powershell geöffnet werden:
+
+```powershell
+wsl --list --online
+```
+```powershell
+wsl --install -d Ubuntu-22.04
+```
+Nach diesem Schritt wird gebeten ein Benutzername und Passwort anzugeben. Das Passwort wird bei allen "sudo" Befehlen angefragt im Ubutu Umfeld
+
+```powershell
+sudo apt update
+```
+```powershell
+sudo apt upgrade
+```
+Hier kann bei Bedarf in die Applikation nun gewechselt werden:
 
 
+Bild
 
+### 2. Hailo Data Compiler herunterladen 
 
+Der Hailo Dataflow Compiler wird benötigt, um ONNX-Modelle in das für die Hailo-Hardware optimierte HEF-Format zu konvertieren. Er passt Modelle an die Hardwarearchitektur an und ermöglicht durch Optimierungen wie Quantisierung eine maximale Leistung bei minimalem Ressourcenverbrauch.
+
+```powershell
+sudo apt install python3-pip
+sudo apt install python3.10-venv
+sudo apt-get install python3.10-dev python3.10-distutils python3-tk libfuse2 graphviz libgraphviz-dev
+sudo pip install pygraphviz
+sudo apt install wslu
+```
+```powershell
+wsl --install -d Ubuntu-22.04
+```
+
+Die Ubuntu 22.04-Version wird zusätzlich über den Microsoft Store heruntergeladen, um eine separate Linux-Applikation bereitzustellen. Obwohl dieser Schritt im ursprünglichen Tutorial nicht vorgesehen war, hat sich die Methode als erfolgreich erwiesen und bietet den Vorteil einer isolierten Arbeitsumgebung mit erhöhter Flexibilität – weshalb ich diese Methode ebenfalls empfehlen würde.
 
 - **Repository-Link**: [Raspberry Pi Deployment](https://github.com/YourUsername/RaspberryPi-Deployment)
 - **Inhalt**:
