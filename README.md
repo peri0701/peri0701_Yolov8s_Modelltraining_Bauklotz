@@ -106,6 +106,11 @@ reboot
 ```
 ### Nutzung von Thonny
 
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(12).gif?raw=true" alt="Demo" width="600">
+
+
+
+
 ```python
 import cv2
 from picamera2 import Picamera2
