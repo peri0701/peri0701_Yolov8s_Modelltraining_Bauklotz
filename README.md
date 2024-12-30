@@ -105,11 +105,12 @@ Ein Neustart des Systems stellt sicher, dass alle Änderungen, wie die Installat
 reboot
 ```
 ### Nutzung von Thonny
+Thonny ist eine benutzerfreundliche Entwicklungsumgebung für Python, die sich ideal für Projekte wie die Objekterkennung mit YOLO auf dem Raspberry Pi eignet. Sie unterstützt die Arbeit in virtuellen Umgebungen (venv), wodurch Skripte sicher getestet und ausgeführt werden können, ohne das Hauptsystem des Raspberry Pi zu beeinträchtigen, und erleichtert so die Entwicklung direkt auf der Plattform.
+ Innerhalb von Thonny kann man dann die entsprechende virtuelle Umgebung auswählen, wodurch alle Skripte und Pakete, die in diesem Projekt verwendet werden, in der isolierten Umgebung bleiben: Hier ein Video, wie die Verknüpfung von Thony mit der venv erfolgen sollte:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(12).gif?raw=true" alt="Demo" width="600">
 
-
-
+Der Ordner der virtuellen Umgebung (venv) befindet sich standardmäßig im aktuellen Arbeitsverzeichnis, in dem der Befehl zur Erstellung ausgeführt wurde. Auf dem Raspberry Pi liegt dieses Verzeichnis meist im Home-Verzeichnis des Benutzers, beispielsweise in /home/pi/. Wird die virtuelle Umgebung mit dem Namen yolo_object erstellt, befindet sich diese anschließend als Unterordner im Home-Verzeichnis unter /home/pi/yolo_object, sofern kein anderes Verzeichnis angegeben wurde. Hier ist das Skript, das in die Benutzeroberfläche eingefügt werden sollte, für das Ausführen des Modells, das vorher in den Ordner der venv gespeichert werden sollte:
 
 ```python
 import cv2
@@ -161,15 +162,19 @@ while True:
 # Close all windows
 cv2.destroyAllWindows()
 ```
+Hier ein Beipiel von der Ausgabe meines Modells:
+
+
+
+
 
 ---
 
 ### 4. **Modellkonvertierung in ONNX**
-- **Repository-Link**: [Raspberry Pi Deployment](https://github.com/YourUsername/RaspberryPi-Deployment)
-- **Inhalt**:
-  - Einrichtung der Hardware- und Softwareumgebung.
-  - Integration der Kameramodule für die Objekterkennung.
-  - Performance-Analyse und Praxistests.
+Die Konnvertrierung in ONNX brauchen wir für die spätere Konvertierung in HEF.
+
+Diese kann in der zuvor erstellten venv durchgeführt werden, da dies von den zuvor heruntergeladenen Ultralytics Pketen durchgeführt werden kann:
+
 
 ---
 ### 4. **Modellkonvertierung in HEF**
@@ -188,6 +193,7 @@ cv2.destroyAllWindows()
   - Umgang mit Kompatibilitätsproblemen und Lösungen.
     
 ---
+
 ## 📖 Zusätzliche Dokumentation
 
 Detaillierte Anleitungen und Hintergründe zu den einzelnen Schritten:
