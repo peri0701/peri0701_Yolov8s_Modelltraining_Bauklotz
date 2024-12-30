@@ -171,10 +171,16 @@ Hier ein Beipiel von der Ausgabe meines Modells:
 ---
 
 ### 4. **Modellkonvertierung in ONNX**
-Die Konnvertrierung in ONNX brauchen wir für die spätere Konvertierung in HEF.
+Die Hailo SDK und der Hailo Data Compiler, die später für die Konvertierung des ONNX-Modells in das Hailo Execution Format (HEF) verwendet werden, unterstützen nur ONNX-Modelle bis zu einer bestimmten Opset-Version, die Versionen die ich genutzt habe besitzen eine Obergrenze bei Opset 9. Die Opset-Version definiert die Funktionen und Operatoren, die innerhalb des Modells verwendet werden können. Opset 9 ist eine stabile und weit unterstützte Version, die mit den meisten älteren Frameworks und Tools kompatibel ist, insbesondere mit der HEF-Pipeline.
 
-Diese kann in der zuvor erstellten venv durchgeführt werden, da dies von den zuvor heruntergeladenen Ultralytics Pketen durchgeführt werden kann:
+Die Konvertierung von ONNX kann direkt über eine YOLO CLI von den zuvor heruntergeladenen Ultralytics Paketen durchgeführt werden kann:
+```bash
+cd env
+yolo export model=best.pt imgsz=640 format=onnx opset=9
+```
+Nach dem Durchführen des Befehls, erhält man folgende Ausgabe und die Information, das die ONNX Datei im selben Ordner, unserer venv, bei mir in "env" gespeichert wurde:
 
+![Bild](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/onnx_conversion.png)
 
 ---
 ### 4. **Modellkonvertierung in HEF**
