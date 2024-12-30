@@ -184,6 +184,12 @@ Nach dem Durchführen des Befehls, erhält man folgende Ausgabe und die Informat
 
 ---
 ### 4. **Modellkonvertierung in HEF**
+Um ein trainiertes Modell auf dem Raspberry Pi AI Kit mit der Hailo-Hardware auszuführen, ist eine Konvertierung des Modells in das Hailo Execution Format (HEF) notwendig. Da die Hailo-Software derzeit ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von WSL (Windows Subsystem for Linux) eine einfache Lösung für Windows-Nutzer. Mit WSL kann eine Ubuntu-Umgebung direkt auf Windows eingerichtet werden, wodurch der gesamte Prozess der Modellkonvertierung wie auf einem nativen Linux-System durchgeführt werden kann, dazu muss zunächst die Powershell geöffnet werden:
+
+
+
+
+
 - **Repository-Link**: [Raspberry Pi Deployment](https://github.com/YourUsername/RaspberryPi-Deployment)
 - **Inhalt**:
   - Einrichtung der Hardware- und Softwareumgebung.
