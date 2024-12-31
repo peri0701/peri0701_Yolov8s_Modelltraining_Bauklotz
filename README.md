@@ -182,7 +182,7 @@ yolo export model=best.pt imgsz=640 format=onnx opset=9
 ```
 Nach dem Durchführen des Befehls, erhält man folgende Ausgabe und die Information, das die ONNX Datei im selben Ordner, unserer venv, bei mir in "env" gespeichert wurde:
 
-![Bild](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/onnx_conversion.png)
+![Image](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/onnx_conversion.png)
 
 ---
 ### 4. **Modellkonvertierung in HEF**
@@ -190,7 +190,9 @@ Nach dem Durchführen des Befehls, erhält man folgende Ausgabe und die Informat
 ### 1.Linux-Umfeld herstellen (WSL & Ubuntu 22.04)
 Um ein trainiertes Modell auf dem Raspberry Pi AI Kit mit der Hailo-Hardware auszuführen, ist eine Konvertierung des Modells in das Hailo Execution Format (HEF) notwendig. Da die Hailo-Software derzeit ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von WSL (Windows Subsystem for Linux) eine einfache Lösung für Windows-Nutzer. 
 
-Die Ubuntu 22.04-Version wird zusätzlich über den Microsoft Store heruntergeladen, um eine separate Linux-Applikation bereitzustellen. Obwohl dieser Schritt im ursprünglichen Tutorial nicht vorgesehen war, hat sich die Methode als erfolgreich erwiesen und bietet den Vorteil einer isolierten Arbeitsumgebung mit erhöhter Flexibilität – weshalb ich diese Methode ebenfalls empfehlen würde.
+Die Ubuntu 22.04-Version wird zusätzlich über den Microsoft Store heruntergeladen, um eine separate Linux-Applikation bereitzustellen. Obwohl dieser Schritt im ursprünglichen Tutorial nicht vorgesehen war, hat sich die Methode als erfolgreich erwiesen und bietet den Vorteil einer isolierten Arbeitsumgebung mit erhöhter Flexibilität – weshalb ich diese Methode ebenfalls empfehlen würde:
+
+<img src="https://github.com/user-attachments/assets/89f280d0-903b-4719-9b9d-d328ea8e20bd"  width="400">
 
 Mit WSL kann eine Ubuntu-Umgebung direkt auf Windows eingerichtet werden, wodurch der gesamte Prozess der Modellkonvertierung wie auf einem nativen Linux-System durchgeführt werden kann, dazu muss zunächst die Powershell geöffnet werden:
 
@@ -208,10 +210,7 @@ sudo apt update
 ```powershell
 sudo apt upgrade
 ```
-Hier kann bei Bedarf in die Applikation nun gewechselt werden:
-
-
-Bild
+Ab hier kann bei Bedarf in die Applikation gewechselt werden.
 
 ### 2. Hailo Data Compiler herunterladen 
 
@@ -233,20 +232,22 @@ python3 -m venv hailodfc
 . hailodfc/bin/activate
 ```
 
-Um die Kompalität mizt der python Umgebung u sehen - Sie sollte 3.10.12 sein.
+Um die Kompalität mit der python Umgebung u sehen - Sie sollte 3.10.12 sein.
 ```powershell
 python3 --version
 ```
 
 Um den Hailo Dataflower Compiler herunterzuladen muss erst eine Registrierung in die Hailo Developer Zone erfolgen, die [hierüber](https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2Fsoftware-downloads%2F) durchgeführt werden kann. Als nächstes muss die 3.28 Version mit der Python Version 3.10, die am 1.Juli 2024 erschienen ist heruntergeladen werden.
 
-video
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(13).gif?raw=true" alt="Demo" width="600">
 
 Nun muss die heruntergelade Datei in unser Ubuntu "home" Verzeichnis gebracht und abgelegt werden, damit sie in unserem Ubuntu Umfeld auch installiert werden kann, mit folgendem Befehl, öffnet sich das Zielverzeichnis, die Datei muss bon den Downloads in diesen Bereich verschoben werden:
 
 ```powershell
 wslview .
 ```
+
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Ubuntu_verzeichnis%20(1).png?raw=true"  width="500">
 
 Ist dies erledigt, kann mit dem Befehl, wird die Installation gestartet: 
 ```powershell
@@ -258,7 +259,8 @@ Mt den Befehlen, kann verifiziert werden, ob der Download erfolgreich war, indem
 ```powershell
 hailo -h
 ```
- bild
+![image](https://github.com/user-attachments/assets/990df005-46d5-4626-979c-c5db122b57f1)
+
 
 ### 3. Hailo Model Zoo herunterladen
 
@@ -268,21 +270,22 @@ In einem nächsten Schritt wird Hailo Modek Zoo heruntergeladen, dazu nutzen wir
 git clone https://github.com/hailo-ai/hailo_model_zoo.git
 ```
 
-Und installieren alle darin enthaltenen Pakete die zum Setup dazu gehören:
+Wechseln das Verzeichnis und installieren alle darin enthaltenen Pakete die zum Setup dazu gehören:
 
 ```powershell
 cd hailo_model_zoo; pip install -e .
 ```
 
-## 4. Vorbereitung auf die HEF Konverterierung 
+## 5. Vorbereitung auf die HEF Konverterierung 
 
 Nun muss wie vorher die heruntergeladene Hailo Datafllow Compiler auch unsere zuvor enerierte best.onnx Datei in das Ubuntu Verzeichnis gezogen werden - Vom Raspberry Pi kann diese über Google Drive auf dem Rechner heruntergeladen werden.
 
-bild
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Ubuntu_verzeichnis%20(2).png?raw=true"  width="500">
 
 Beim Herunterladen des Datensatzes wurdn die Bilder und Annotationen in drei Ordner Strukturen aufgeteilt, der train Ordner, muss ebenfalls in das Ubuntu Umfeld gepackt werden.
 
-bild
+
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/train_.png?raw=true" width="500">
 
 Viele machen den Fehler den Befehl zur Performance Steigerung jetzt schon auszugeben, da man davon ausgehen kann, dass man alle Komponenten besitzt:
 
@@ -292,7 +295,9 @@ hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/im
 ```
 Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, die unter folgendem Verzeichnis zu finden sind im Ubuntu Verzeichnis:
 
-#
+# 
+
+<img src="https://github.com/user-attachments/assets/ecdd1477-9e86-4694-ae27-1b89787e3dc8" width="500">
 Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  # hier die Klassenanzahl angeben, hier 1
 
 ```json
@@ -333,6 +338,7 @@ Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  #
 
 #
 
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/nms.png?raw=true" width="500">
 
 ```plaintext
 quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0])
@@ -346,6 +352,8 @@ nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yo
 
 
 #
+
+<img src="https://github.com/user-attachments/assets/e11e5afc-6a31-4845-a8b5-18e4c8ff9e74" width="500">
 
 ```yaml
 base:
@@ -386,16 +394,12 @@ info:
   license_name: GPL-3.0
 ```
 
-
 Ist die Optimierung abgeschlossen, erhält man folgende Tabelle und die Information, dass die Hef datei gespeichert wurde.
-
-bild
-bidl
-
-
+![image](https://github.com/user-attachments/assets/5ec07c59-1871-458a-80c2-a9bde57cdc72)
+![image](https://github.com/user-attachments/assets/7183d63d-2382-4a96-a527-8c46464e1d64)
 
 ---
-### 3. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
+### 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
 
 Dafür muss das entsprechende Umfeld erst geschaffen werden, dafür wird das Hailo rpi5 Examples repository auf dem Raspberry Pi heruntergeladen.
 
