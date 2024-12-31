@@ -395,7 +395,6 @@ info:
 ```
 
 Ist die Optimierung abgeschlossen, erhält man folgende Tabelle und die Information, dass die Hef datei gespeichert wurde.
-![image](https://github.com/user-attachments/assets/5ec07c59-1871-458a-80c2-a9bde57cdc72)
 ![image](https://github.com/user-attachments/assets/7183d63d-2382-4a96-a527-8c46464e1d64)
 
 ---
@@ -445,8 +444,16 @@ Es gibt im Hailo-rpi5-examples GitHub verschiede Beispiele, wie der Hailo AI Kit
 
 Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente in den folgenden Verzechnissen hinterlegt werden: 
 
-.
-    
+
+![image](https://github.com/user-attachments/assets/4a951f37-fc4c-40cc-a593-74df36a8c6e9)
+
+![image](https://github.com/user-attachments/assets/ee5af30a-4666-407a-a0a9-fa1ee7dd844d)
+
+Folgender Befehl wird dann zum Ausführen ausgeführt:
+
+```bash
+
+```
 ---
 
 ## 📖 Zusätzliche Dokumentation
