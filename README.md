@@ -215,6 +215,8 @@ Bild
 
 Der Hailo Dataflow Compiler wird benötigt, um ONNX-Modelle in das für die Hailo-Hardware optimierte HEF-Format zu konvertieren. Er passt Modelle an die Hardwarearchitektur an und ermöglicht durch Optimierungen wie Quantisierung eine maximale Leistung bei minimalem Ressourcenverbrauch.
 
+NUn werden erforderliche Python Pakete heruntergeladen, die wir für den Hailo Data Compiler benötigen.
+
 ```powershell
 sudo apt install python3-pip
 sudo apt install python3.10-venv
@@ -222,9 +224,21 @@ sudo apt-get install python3.10-dev python3.10-distutils python3-tk libfuse2 gra
 sudo pip install pygraphviz
 sudo apt install wslu
 ```
+Eine venv aufgestellt:
+
 ```powershell
-wsl --install -d Ubuntu-22.04
+python3 -m venv hailodfc
+. hailodfc/bin/activate
 ```
+
+Um die Kompalität mizt der python Umgebung u sehen - Sie sollte 3.10.12 sein.
+```powershell
+python3 --version
+```
+
+Um den Hailo Dataflower Compiler herunterzuladen muss erst eine Registrierung in die Hailo Developer Zone erfolgen, die [hierüber](https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2Fsoftware-downloads%2F) durchgeführt werden kann. Als nächstes muss die 3.28 Version mit der Python Version 3.10, die am 1.Juli 2024 erschienen ist heruntergeladen werden.
+
+
 
 Die Ubuntu 22.04-Version wird zusätzlich über den Microsoft Store heruntergeladen, um eine separate Linux-Applikation bereitzustellen. Obwohl dieser Schritt im ursprünglichen Tutorial nicht vorgesehen war, hat sich die Methode als erfolgreich erwiesen und bietet den Vorteil einer isolierten Arbeitsumgebung mit erhöhter Flexibilität – weshalb ich diese Methode ebenfalls empfehlen würde.
 
