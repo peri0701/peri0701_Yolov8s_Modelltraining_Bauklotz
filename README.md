@@ -299,10 +299,10 @@ Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, di
 	"nms_iou_th": 0.7,
 	"image_dims": [
 		640,
-		640
+		640 #Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden 
 	],
 	"max_proposals_per_class": 100,
-	"classes": 80,
+	"classes": 1, # hier die Klassenanzahl angeben, hier 1
 	"regression_length": 16,
 	"background_removal": false,
 	"background_removal_index": 0,
@@ -333,10 +333,12 @@ Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, di
 
 
 ```plaintext
+quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0])
 normalization1 = normalization([0.0, 0.0, 0.0], [255.0, 255.0, 255.0])
 change_output_activation(conv42, sigmoid)
 change_output_activation(conv53, sigmoid)
 change_output_activation(conv63, sigmoid)
+performance_param(compiler_optimization_level=max)
 nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yolov8, engine=cpu)
 ```
 
@@ -356,8 +358,8 @@ network:
   network_name: yolov8s
 paths:
   network_path:
-  - models_files/ObjectDetection/Detection-COCO/yolo/yolov8s/2023-02-02/yolov8s.onnx
-  alls_script: yolov8s.alls
+  - best.onnx #Hier muss der genaue Pfad zur ONNX Datei angegeben werden 
+  alls_script: hailo_model_zoo/hailo_model_zoo/cfg/alls/yolov8s.alls #Hier muss der genaue Pfad zur yolov8s.alls Datei angegeben werden 
   url: https://hailo-model-zoo.s3.eu-west-2.amazonaws.com/ObjectDetection/Detection-COCO/yolo/yolov8s/2023-02-02/yolov8s.zip
 parser:
   nodes:
@@ -371,9 +373,9 @@ parser:
 info:
   task: object detection
   input_shape: 640x640x3
-  output_shape: 80x5x100
-  operations: 28.6G
-  parameters: 11.2M
+  output_shape: 1x5x100 #Erste Zahl steht für die Klasse (1=Bauklotz)
+  operations: 28.4G #Entspricht GFLOPs der "Model Summary(fused)"   Angabe meines Modeltrainings
+  parameters: 11.125M #Entspricht den parametern der "Model Summary(fused)" des Modelltrainings 
   framework: pytorch
   training_data: coco train2017
   validation_data: coco val2017
@@ -383,6 +385,14 @@ info:
   license_url: https://github.com/ultralytics/ultralytics/blob/main/LICENSE
   license_name: GPL-3.0
 ```
+
+
+
+
+
+
+
+
 
 - **Repository-Link**: [Raspberry Pi Deployment](https://github.com/YourUsername/RaspberryPi-Deployment)
 - **Inhalt**:
