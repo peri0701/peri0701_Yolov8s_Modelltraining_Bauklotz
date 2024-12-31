@@ -293,16 +293,18 @@ hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/im
 Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, die unter folgendem Verzeichnis zu finden sind im Ubuntu Verzeichnis:
 
 #
+Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  # hier die Klassenanzahl angeben, hier 1
+
 ```json
 {
 	"nms_scores_th": 0.2,
 	"nms_iou_th": 0.7,
 	"image_dims": [
 		640,
-		640 #Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden 
+		640 
 	],
 	"max_proposals_per_class": 100,
-	"classes": 1, # hier die Klassenanzahl angeben, hier 1
+	"classes": 1,
 	"regression_length": 16,
 	"background_removal": false,
 	"background_removal_index": 0,
@@ -345,8 +347,6 @@ nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yo
 
 #
 
-
-
 ```yaml
 base:
 - base/yolov8.yaml
@@ -387,29 +387,61 @@ info:
 ```
 
 
+Ist die Optimierung abgeschlossen, erhält man folgende Tabelle und die Information, dass die Hef datei gespeichert wurde.
 
-
-
-
-
-
-
-- **Repository-Link**: [Raspberry Pi Deployment](https://github.com/YourUsername/RaspberryPi-Deployment)
-- **Inhalt**:
-  - Einrichtung der Hardware- und Softwareumgebung.
-  - Integration der Kameramodule für die Objekterkennung.
-  - Performance-Analyse und Praxistests.
-
+bild
+bidl
 
 
 
 ---
-### 3. **Modellausführung auf dem Raspberry PI 5**
-- **Repository-Link**: [Model Conversion for Hailo](https://github.com/YourUsername/Model-Conversion)
-- **Inhalt**:
-  - Konvertierung von PyTorch-Modellen zu ONNX.
-  - Anpassung an das Hailo Execution Format (HEF).
-  - Umgang mit Kompatibilitätsproblemen und Lösungen.
+### 3. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
+
+Dafür muss das entsprechende Umfeld erst geschaffen werden, dafür wird das Hailo rpi5 Examples repository auf dem Raspberry Pi heruntergeladen.
+
+```bash
+git clone https://github.com/hailo-ai/hailo-rpi5-examples.git
+```
+```bash
+cd hailo-rpi5-examples
+```
+```bash
+./install.sh
+```
+Falls der ./install.sh nicht auf anhieb funktionieren sollte, so gibt es eine Zweite Möglichkeit die benötigten Packete herunterzuladen, eine venv wird manuell durch folgenden Link erstellt, hier: 
+
+```bash
+source setup_env.sh
+```
+```bash
+pip install -r requirements.txt
+```
+```bash
+./download_resources.sh
+```
+```bash
+./compile_postprocess.sh
+```
+
+Wenn die venv geschlossen wird und man eine neue Terminal session benutzen möchte mit den Paketen, so sollte immer source setup_env.sh verwendet werden. 
+
+**Hinweis:** Man muss isch im hailo-rpi5-examples Verzeichnis befinden!
+Wie folgt ist nach einer neuen Terminal Session vorzugehen:
+
+```bash
+cd hailo-rpi5-examples
+```
+
+```bash
+source setup_env.sh
+```
+
+Es gibt im Hailo-rpi5-examples GitHub verschiede Beispiele, wie der Hailo AI Kit mit dem Raspberry Pi5 genutzt werden kann, außer der Object detection Funktion, [hier](https://github.com/hailo-ai/hailo-rpi5-examples/tree/main) ein Link zur Seite.
+
+
+Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente in den folgenden Verzechnissen hinterlegt werden: 
+
+.
     
 ---
 
@@ -423,17 +455,9 @@ Detaillierte Anleitungen und Hintergründe zu den einzelnen Schritten:
 
 ---
 
-## 🌟 Warum dieses Projekt?
+## 🌟 Warum wurde eine GitHub Seite erstellt?
 
 Dieses Projekt zeigt, wie leistungsstarke, kosteneffiziente Hardware wie der Raspberry Pi in Kombination mit modernen KI-Modellen genutzt werden kann, um industrielle Anwendungen zu verbessern. Es soll anderen Entwicklern und Forschern als Inspiration und Anleitung dienen.
-
----
-
-## 📬 Kontakt
-
-Für Rückfragen oder Anregungen stehe ich gerne zur Verfügung:
-- **E-Mail**: yourname@example.com
-- **LinkedIn**: [Dein LinkedIn-Profil](https://linkedin.com/in/yourprofile)
 
 ---
 
