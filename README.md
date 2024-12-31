@@ -104,7 +104,7 @@ pip install ultralytics[export]
 
 Ein Neustart des Systems stellt sicher, dass alle Änderungen, wie die Installation von Paketen und Systemaktualisierungen, korrekt übernommen werden.
 ```bash
-reboot
+sudo reboot
 ```
 ### Nutzung von Thonny
 Thonny ist eine benutzerfreundliche Entwicklungsumgebung für Python, die sich ideal für Projekte wie die Objekterkennung mit YOLO auf dem Raspberry Pi eignet. Sie unterstützt die Arbeit in virtuellen Umgebungen (venv), wodurch Skripte sicher getestet und ausgeführt werden können, ohne das Hauptsystem des Raspberry Pi zu beeinträchtigen, und erleichtert so die Entwicklung direkt auf der Plattform.
@@ -293,12 +293,96 @@ hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/im
 Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, die unter folgendem Verzeichnis zu finden sind im Ubuntu Verzeichnis:
 
 #
+```json
+{
+	"nms_scores_th": 0.2,
+	"nms_iou_th": 0.7,
+	"image_dims": [
+		640,
+		640
+	],
+	"max_proposals_per_class": 100,
+	"classes": 80,
+	"regression_length": 16,
+	"background_removal": false,
+	"background_removal_index": 0,
+	"bbox_decoders": [
+		{
+			"name": "bbox_decoder41",
+			"stride": 8,
+			"reg_layer": "conv41",
+			"cls_layer": "conv42"
+		},
+		{
+			"name": "bbox_decoder52",
+			"stride": 16,
+			"reg_layer": "conv52",
+			"cls_layer": "conv53"
+		},
+		{
+			"name": "bbox_decoder62",
+			"stride": 32,
+			"reg_layer": "conv62",
+			"cls_layer": "conv63"
+		}
+	]
+}
+```
 
 #
 
+
+```plaintext
+normalization1 = normalization([0.0, 0.0, 0.0], [255.0, 255.0, 255.0])
+change_output_activation(conv42, sigmoid)
+change_output_activation(conv53, sigmoid)
+change_output_activation(conv63, sigmoid)
+nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yolov8, engine=cpu)
+```
+
+
 #
 
 
+
+```yaml
+base:
+- base/yolov8.yaml
+postprocessing:
+  device_pre_post_layers:
+    nms: true
+  hpp: true
+network:
+  network_name: yolov8s
+paths:
+  network_path:
+  - models_files/ObjectDetection/Detection-COCO/yolo/yolov8s/2023-02-02/yolov8s.onnx
+  alls_script: yolov8s.alls
+  url: https://hailo-model-zoo.s3.eu-west-2.amazonaws.com/ObjectDetection/Detection-COCO/yolo/yolov8s/2023-02-02/yolov8s.zip
+parser:
+  nodes:
+  - null
+  - - /model.22/cv2.0/cv2.0.2/Conv
+    - /model.22/cv3.0/cv3.0.2/Conv
+    - /model.22/cv2.1/cv2.1.2/Conv
+    - /model.22/cv3.1/cv3.1.2/Conv
+    - /model.22/cv2.2/cv2.2.2/Conv
+    - /model.22/cv3.2/cv3.2.2/Conv
+info:
+  task: object detection
+  input_shape: 640x640x3
+  output_shape: 80x5x100
+  operations: 28.6G
+  parameters: 11.2M
+  framework: pytorch
+  training_data: coco train2017
+  validation_data: coco val2017
+  eval_metric: mAP
+  full_precision_result: 44.75
+  source: https://github.com/ultralytics/ultralytics
+  license_url: https://github.com/ultralytics/ultralytics/blob/main/LICENSE
+  license_name: GPL-3.0
+```
 
 - **Repository-Link**: [Raspberry Pi Deployment](https://github.com/YourUsername/RaspberryPi-Deployment)
 - **Inhalt**:
