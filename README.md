@@ -60,7 +60,9 @@ Nachdem Bilder und Annotationen hinzugefügt wurden, kann eine neue Version des 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(5).gif?raw=true" alt="Demo" width="600">
 
 ### Schritt 5: Datensatz exportieren
-Sobald eine Datensatzversion generiert wurde, steht der Datensatz zum Export bereit. Dieser kann in verschiedenen Formaten heruntergeladen werden, beispielsweise im Format für YOLOv8, das für das Training in einem Notebook oder einer anderen Umgebung genutzt werden kann. Im Beispiel wird gezeigt wie von Roboflow Universe, mein finaler Datensatz zu finden ist und heruntergeladen werden kann. Hier zum Datensatz [Direktlink](https://www.google.com/url?q=https%3A%2F%2Funiverse.roboflow.com%2Fbauklotz%2Fbauklotz-c8zsq%2Fdataset%2F1). die weiteren Schritte sind im nächsten Abschnitt zum Modelltraining auf Google Colab zu finden, in dem ich empfehle das Modelltraining zu absolvieren.
+Sobald eine Datensatzversion generiert wurde, steht der Datensatz zum Export bereit. Dieser kann in verschiedenen Formaten heruntergeladen werden, beispielsweise im Format für YOLOv8. Neben dem Herunterladen des Datensatzes auf den Rechner, kann auch ein Befehl generiert  werden, der für das Training in einem Notebook oder einer anderen Umgebung genutzt werden kann. Der Datensatz sollte auf dem Rechner heruntergeladen werden, da er später bei der HEF konvertierung eine Rolle spielen wird.
+
+Im Beispiel wird gezeigt wie von Roboflow Universe, mein finaler Datensatz zu finden ist und heruntergeladen werden kann. Hier zum Datensatz [Direktlink](https://www.google.com/url?q=https%3A%2F%2Funiverse.roboflow.com%2Fbauklotz%2Fbauklotz-c8zsq%2Fdataset%2F1). die weiteren Schritte sind im nächsten Abschnitt zum Modelltraining auf Google Colab zu finden, in dem ich empfehle das Modelltraining zu absolvieren.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(11).gif?raw=true" alt="Demo" width="600">
 
@@ -240,7 +242,61 @@ Um den Hailo Dataflower Compiler herunterzuladen muss erst eine Registrierung in
 
 video
 
-Nun muss die heruntergelade Datei in unser Ubuntu "home" Verzeichnis gebracht und abgelegt werden, damit sie in unserem Ubuntu Umfeld auch installiert werden kann:
+Nun muss die heruntergelade Datei in unser Ubuntu "home" Verzeichnis gebracht und abgelegt werden, damit sie in unserem Ubuntu Umfeld auch installiert werden kann, mit folgendem Befehl, öffnet sich das Zielverzeichnis, die Datei muss bon den Downloads in diesen Bereich verschoben werden:
+
+```powershell
+wslview .
+```
+
+Ist dies erledigt, kann mit dem Befehl, wird die Installation gestartet: 
+```powershell
+pip3 install hailo_dataflow_compiler-3.28.0-py3-none-linux_x86_64.whl
+```
+
+Mt den Befehlen, kann verifiziert werden, ob der Download erfolgreich war, indem man "help" anzeigen lässt:
+
+```powershell
+hailo -h
+```
+ bild
+
+### 3. Hailo Model Zoo herunterladen
+
+In einem nächsten Schritt wird Hailo Modek Zoo heruntergeladen, dazu nutzen wir Hailo AIs Github repository:
+
+```powershell
+git clone https://github.com/hailo-ai/hailo_model_zoo.git
+```
+
+Und installieren alle darin enthaltenen Pakete die zum Setup dazu gehören:
+
+```powershell
+cd hailo_model_zoo; pip install -e .
+```
+
+## 4. Vorbereitung auf die HEF Konverterierung 
+
+Nun muss wie vorher die heruntergeladene Hailo Datafllow Compiler auch unsere zuvor enerierte best.onnx Datei in das Ubuntu Verzeichnis gezogen werden - Vom Raspberry Pi kann diese über Google Drive auf dem Rechner heruntergeladen werden.
+
+bild
+
+Beim Herunterladen des Datensatzes wurdn die Bilder und Annotationen in drei Ordner Strukturen aufgeteilt, der train Ordner, muss ebenfalls in das Ubuntu Umfeld gepackt werden.
+
+bild
+
+Viele machen den Fehler den Befehl zur Performance Steigerung jetzt schon auszugeben, da man davon ausgehen kann, dass man alle Komponenten besitzt:
+
+
+```powershell
+hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/images --classes 1 --performance
+```
+Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, die unter folgendem Verzeichnis zu finden sind im Ubuntu Verzeichnis:
+
+#
+
+#
+
+#
 
 
 
@@ -249,6 +305,9 @@ Nun muss die heruntergelade Datei in unser Ubuntu "home" Verzeichnis gebracht un
   - Einrichtung der Hardware- und Softwareumgebung.
   - Integration der Kameramodule für die Objekterkennung.
   - Performance-Analyse und Praxistests.
+
+
+
 
 ---
 ### 3. **Modellausführung auf dem Raspberry PI 5**
