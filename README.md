@@ -394,7 +394,7 @@ info:
   license_name: GPL-3.0
 ```
 
-Ist die Optimierung abgeschlossen, erhält man folgende Tabelle und die Information, dass die Hef datei gespeichert wurde.
+Ist die Optimierung abgeschlossen, erhält die Information, dass die Hef datei gespeichert wurde.
 ![image](https://github.com/user-attachments/assets/7183d63d-2382-4a96-a527-8c46464e1d64)
 
 ---
@@ -449,10 +449,10 @@ Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente in den folgend
 
 ![image](https://github.com/user-attachments/assets/ee5af30a-4666-407a-a0a9-fa1ee7dd844d)
 
-Folgender Befehl wird dann zum Ausführen ausgeführt:
+Folgender Befehl wird dann zum Ausführen ausgeführt, input hier ist unsere Raspberry PI 3 Camera Module Kamera:
 
 ```bash
-
+python basic_pipelines/bauklotz-detection.py --labels-json resources/bauklotz-labels.json --hef resources/yolov8s-hailo8l-barcode.hef --input -rpi
 ```
 ---
 
