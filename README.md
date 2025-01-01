@@ -167,6 +167,7 @@ cv2.destroyAllWindows()
 Hier ein Beipiel von der Ausgabe meines Modells:
 
 
+![image](https://github.com/user-attachments/assets/0cdf7362-b92e-4f8e-a2b4-e03df282c4dd)
 
 
 
@@ -185,7 +186,7 @@ Nach dem Durchführen des Befehls, erhält man folgende Ausgabe und die Informat
 ![Image](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/onnx_conversion.png)
 
 ---
-### 4. **Modellkonvertierung in HEF**
+## 5. **Modellkonvertierung in HEF**
 
 ### 1.Linux-Umfeld herstellen (WSL & Ubuntu 22.04)
 Um ein trainiertes Modell auf dem Raspberry Pi AI Kit mit der Hailo-Hardware auszuführen, ist eine Konvertierung des Modells in das Hailo Execution Format (HEF) notwendig. Da die Hailo-Software derzeit ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von WSL (Windows Subsystem for Linux) eine einfache Lösung für Windows-Nutzer. 
@@ -247,7 +248,7 @@ Nun muss die heruntergelade Datei in unser Ubuntu "home" Verzeichnis gebracht un
 wslview .
 ```
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Ubuntu_verzeichnis%20(1).png?raw=true"  width="500">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Ubuntu_verzeichnis%20(1).png?raw=true"  width="400">
 
 Ist dies erledigt, kann mit dem Befehl, wird die Installation gestartet: 
 ```powershell
@@ -280,12 +281,12 @@ cd hailo_model_zoo; pip install -e .
 
 Nun muss wie vorher die heruntergeladene Hailo Datafllow Compiler auch unsere zuvor enerierte best.onnx Datei in das Ubuntu Verzeichnis gezogen werden - Vom Raspberry Pi kann diese über Google Drive auf dem Rechner heruntergeladen werden.
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Ubuntu_verzeichnis%20(2).png?raw=true"  width="500">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Ubuntu_verzeichnis%20(2).png?raw=true"  width="400">
 
 Beim Herunterladen des Datensatzes wurdn die Bilder und Annotationen in drei Ordner Strukturen aufgeteilt, der train Ordner, muss ebenfalls in das Ubuntu Umfeld gepackt werden.
 
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/train_.png?raw=true" width="500">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/train_.png?raw=true" width="400">
 
 Viele machen den Fehler den Befehl zur Performance Steigerung jetzt schon auszugeben, da man davon ausgehen kann, dass man alle Komponenten besitzt:
 
@@ -297,7 +298,7 @@ Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, di
 
 # 
 
-<img src="https://github.com/user-attachments/assets/ecdd1477-9e86-4694-ae27-1b89787e3dc8" width="500">
+<img src="https://github.com/user-attachments/assets/ecdd1477-9e86-4694-ae27-1b89787e3dc8" width="400">
 Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  # hier die Klassenanzahl angeben, hier 1
 
 ```json
@@ -338,7 +339,7 @@ Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  #
 
 #
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/nms.png?raw=true" width="500">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/nms.png?raw=true" width="400">
 
 ```plaintext
 quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0])
@@ -353,7 +354,7 @@ nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yo
 
 #
 
-<img src="https://github.com/user-attachments/assets/e11e5afc-6a31-4845-a8b5-18e4c8ff9e74" width="500">
+<img src="https://github.com/user-attachments/assets/e11e5afc-6a31-4845-a8b5-18e4c8ff9e74" width="400">
 
 ```yaml
 base:
@@ -398,7 +399,7 @@ Ist die Optimierung abgeschlossen, erhält die Information, dass die Hef datei g
 ![image](https://github.com/user-attachments/assets/7183d63d-2382-4a96-a527-8c46464e1d64)
 
 ---
-### 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
+## 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
 
 Dafür muss das entsprechende Umfeld erst geschaffen werden, dafür wird das Hailo rpi5 Examples repository auf dem Raspberry Pi heruntergeladen.
 
@@ -445,15 +446,22 @@ Es gibt im Hailo-rpi5-examples GitHub verschiede Beispiele, wie der Hailo AI Kit
 Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente in den folgenden Verzechnissen hinterlegt werden: 
 
 
-![image](https://github.com/user-attachments/assets/4a951f37-fc4c-40cc-a593-74df36a8c6e9)
 
-![image](https://github.com/user-attachments/assets/ee5af30a-4666-407a-a0a9-fa1ee7dd844d)
+<img src="https://github.com/user-attachments/assets/4a951f37-fc4c-40cc-a593-74df36a8c6e9" width="400">
+
+<img src="https://github.com/user-attachments/assets/ee5af30a-4666-407a-a0a9-fa1ee7dd844d" width="400">
 
 Folgender Befehl wird dann zum Ausführen ausgeführt, input hier ist unsere Raspberry PI 3 Camera Module Kamera:
 
 ```bash
 python basic_pipelines/bauklotz-detection.py --labels-json resources/bauklotz-labels.json --hef resources/yolov8s-hailo8l-barcode.hef --input -rpi
 ```
+
+Hier die Ausgabe:
+
+![image](https://github.com/user-attachments/assets/916cb36c-8beb-4041-ba46-8535442ebe21)
+
+
 ---
 
 ## 📖 Zusätzliche Dokumentation
