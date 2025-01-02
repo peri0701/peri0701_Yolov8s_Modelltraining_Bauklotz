@@ -9,32 +9,27 @@ Willkommen auf der Github Seite zu meiner **Bachelorarbeit**:
 
 ## 🎯 Projektübersicht
 
-In meiner Bachelorarbeit habe ich ein YOLOv8s-Modell entwickelt, das speziell zur Objekterkennung von Bauklötzen auf dem Raspberry Pi 5 mit dem AI Kit und der Camera Module 3 verwendet wird.Dieses Projekt ermöglicht präzise Objekterkennung in Echtzeit und zeigt das Potenzial KI-gestützter Anwendungen für industrielle Automatisierung.
+In meiner Bachelorarbeit habe ich ein YOLOv8s-Modell entwickelt, das speziell zur Objekterkennung von Bauklötzen auf dem Raspberry Pi 5 mit dem AI Kit und der Camera Module 3 verwendet wird.Das Projekt ermöglicht präzise Objekterkennung in Echtzeit und unterstreicht die Relevanz von KI für die industrielle Automatisierung
 
 Diese GitHub-Seite bietet:
-- **Zugriff auf wichtige Dokumente, Codes und Ergebnisse**, um die Arbeit für Leser und Mitwirkende nachvollziehbar zu machen.
-- **Verlinkungen zu detaillierten Repositories**, die spezifische Aspekte wie Modelltraining und Datensatzaufbereitung abdecken.
-
+- **Zugriff auf wichtige Dokumente, Codes und Ergebnisse**, um die Arbeit für Leser und Nutzer nachvollziehbar zu machen.
+- **Detaillierte Repositories**, die Aspekte wie Modelltraining und Datensatzaufbereitung beleuchten.
 ---
 
-## 📂 Schritte der Projektumsetzung
-**1. Erstellen eines benutzerdefinierten Datensatzes mit Roboflow**
+### 📂 Schritte der Projektumsetzung
 
-**2. Trainieren des Modells und Validierung der Ergebnisse**
-
-**3. Ausführen des Modells auf dem Raspberry Pi 5**
-
-**4. Konvertieren des Modells in das ONNX-Format**
-
-**5. Konvertieren des ONNX-Modells in das HEF-Format**
-
-**6. Ausführen des konvertierten Modells auf dem Raspberry Pi 5 & AI Kit**
+1. Erstellen eines benutzerdefinierten Datensatzes mit Roboflow
+2. Trainieren des Modells und Validierung der Ergebnisse
+3. Ausführen des Modells auf dem Raspberry Pi 5
+4. Konvertieren des Modells in das ONNX-Format
+5. Konvertieren des ONNX-Modells in das HEF-Format
+6. Ausführen des konvertierten Modells auf dem Raspberry Pi 5 & AI Kit
    
-Diese Schritte beschreiben den gesamten Entwicklungsprozess, angefangen bei der Datensammlung und Vorbereitung über die Modelltrainings- und Konvertierungsphasen bis hin zur finalen Anwendung des Modells auf der Hardware.
+Diese Schritte umfassen den gesamten Entwicklungsprozess – von der Datensammlung über das Modelltraining bis hin zur finalen Anwendung auf der Hardware.
 
 ---
 
-## 📸 Erstellung eines benutzerdefinierten Datensatzes mit Roboflow
+## 📸 Erstellen eines benutzerdefinierten Datensatzes mit Roboflow
 [Roboflow](https://roboflow.com/) erleichtert die Datensatzerstellung durch intuitive Verwaltung, Augmentationsoptionen und den Export in verschiedene Formate. 
 Für Projekte, die auf vorhandene Daten angewiesen sind, bietet [Roboflow Universe](https://universe.roboflow.com/) mit über 110.000 offenen Datensätzen eine schnelle und vielseitige Alternative. Von annotierten Rissen in Beton bis hin zu Pflanzenbildern mit Krankheitsmarkierungen bietet die Plattform eine breite Auswahl und spart wertvolle Zeit.
 
