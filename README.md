@@ -286,7 +286,7 @@ Nun muss wie vorher die heruntergeladene Hailo Datafllow Compiler auch unsere zu
 Beim Herunterladen des Datensatzes wurdn die Bilder und Annotationen in drei Ordner Strukturen aufgeteilt, der train Ordner, muss ebenfalls in das Ubuntu Umfeld gepackt werden.
 
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/train.jpeg?raw=true" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/trsin_folder.jpeg?raw=true" width="400">
 
 Viele machen den Fehler den Befehl zur Performance Steigerung jetzt schon auszugeben, da man davon ausgehen kann, dass man alle Komponenten besitzt:
 
@@ -297,8 +297,8 @@ hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/im
 Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, die unter folgendem Verzeichnis zu finden sind im Ubuntu Verzeichnis:
 
 # 
+![image](https://github.com/user-attachments/assets/4172ebb3-c527-4208-8819-20472d413967)
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="400">
 Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  # hier die Klassenanzahl angeben, hier 1
 
 ```json
@@ -338,8 +338,8 @@ Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  #
 ```
 
 #
+![image](https://github.com/user-attachments/assets/2905ce2d-8423-4528-ace4-11579f15bf11)
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/nms.jpeg?raw=true" width="400">
 
 ```plaintext
 quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0])
@@ -354,7 +354,7 @@ nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yo
 
 #
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/generic.jpeg?raw=true" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="400">
 
 ```yaml
 base:
@@ -449,7 +449,7 @@ Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente in den folgend
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/pipeline.jpeg?raw=true" width="400">
 
-<img src="https://github.com/user-attachments/assets/ee5af30a-4666-407a-a0a9-fa1ee7dd844d" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/ressources.jpeg?raw=true" width="400">
 
 Folgender Befehl wird dann zum Ausführen ausgeführt, input hier ist unsere Raspberry PI 3 Camera Module Kamera:
 
