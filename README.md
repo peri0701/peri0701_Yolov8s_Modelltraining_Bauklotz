@@ -169,7 +169,7 @@ while True:
     confidences = results[0].boxes.conf  # Extrahiere Konfidenzwerte
 
     # Zusätzliche Erkennungsdetails mit Koordinaten ausgeben
-    print("\nKoordinaten:")
+    print("\nAdditional Detection Details (with Coordinates):")
     for i, box in enumerate(detections):
         x1, y1, x2, y2 = map(int, box)  # Koordinaten als absolute Pixelwerte
         class_index = int(classes[i])
@@ -195,10 +195,10 @@ while True:
 # Alle Fenster schließen
 cv2.destroyAllWindows()
 ```
-Hier ein Beipiel von der Ausgabe meines Modells:
+Das folgende Bild zeigt die Ausgabe meines trainierten Modells. Die Objekte wurden erfolgreich erkannt und mit Bounding Boxen, Klassennamen sowie Konfidenzwerten versehen.
 
 
-![image](https://github.com/user-attachments/assets/0cdf7362-b92e-4f8e-a2b4-e03df282c4dd)
+![image](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/PT_modell.png?raw=true)
 
 
 
