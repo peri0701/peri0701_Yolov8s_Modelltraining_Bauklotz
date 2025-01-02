@@ -248,7 +248,7 @@ Nun muss die heruntergelade Datei in unser Ubuntu "home" Verzeichnis gebracht un
 wslview .
 ```
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Ubuntu_verzeichnis%20(1).png?raw=true"  width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/dataflower.jpeg?raw=true"  width="400">
 
 Ist dies erledigt, kann mit dem Befehl, wird die Installation gestartet: 
 ```powershell
@@ -281,12 +281,12 @@ cd hailo_model_zoo; pip install -e .
 
 Nun muss wie vorher die heruntergeladene Hailo Datafllow Compiler auch unsere zuvor enerierte best.onnx Datei in das Ubuntu Verzeichnis gezogen werden - Vom Raspberry Pi kann diese über Google Drive auf dem Rechner heruntergeladen werden.
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Ubuntu_verzeichnis%20(2).png?raw=true"  width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/best.jpeg?raw=true"  width="400">
 
 Beim Herunterladen des Datensatzes wurdn die Bilder und Annotationen in drei Ordner Strukturen aufgeteilt, der train Ordner, muss ebenfalls in das Ubuntu Umfeld gepackt werden.
 
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/train_.png?raw=true" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/train.jpeg?raw=true" width="400">
 
 Viele machen den Fehler den Befehl zur Performance Steigerung jetzt schon auszugeben, da man davon ausgehen kann, dass man alle Komponenten besitzt:
 
@@ -298,7 +298,7 @@ Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, di
 
 # 
 
-<img src="https://github.com/user-attachments/assets/ecdd1477-9e86-4694-ae27-1b89787e3dc8" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="400">
 Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  # hier die Klassenanzahl angeben, hier 1
 
 ```json
@@ -339,7 +339,7 @@ Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  #
 
 #
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/nms.png?raw=true" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/nms.jpeg?raw=true" width="400">
 
 ```plaintext
 quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0])
@@ -354,7 +354,7 @@ nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yo
 
 #
 
-<img src="https://github.com/user-attachments/assets/e11e5afc-6a31-4845-a8b5-18e4c8ff9e74" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/generic.jpeg?raw=true" width="400">
 
 ```yaml
 base:
@@ -447,7 +447,7 @@ Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente in den folgend
 
 
 
-<img src="https://github.com/user-attachments/assets/4a951f37-fc4c-40cc-a593-74df36a8c6e9" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/pipeline.jpeg?raw=true" width="400">
 
 <img src="https://github.com/user-attachments/assets/ee5af30a-4666-407a-a0a9-fa1ee7dd844d" width="400">
 
