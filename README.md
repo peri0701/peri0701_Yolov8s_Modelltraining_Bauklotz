@@ -2,14 +2,14 @@
 [![Öffnen in Colab](https://img.shields.io/badge/Open%20in%20Colab-grey?style=flat-square&logo=google-colab&logoColor=F9AB00&labelColor=grey&color=F9AB00)](https://colab.research.google.com/drive/1halSc73m1BsovgJhM2FQkquQVUpD2_7B?usp=sharing)
 
 
-Willkommen auf der Github Seite zu meiner **Bachelorarbeit**:  
+Willkommen auf der GitHub Seite zu meiner **Bachelorarbeit**:  
 **Entwicklung einer KI-basierten Objekterkennungsapplikation für einen Industrieroboter**.  
 
 ---
 
 ## 🎯 Projektübersicht
 
-In meiner Bachelorarbeit habe ich ein YOLOv8s-Modell entwickelt, das speziell zur Objekterkennung von Bauklötzen auf dem Raspberry Pi 5 mit dem AI Kit und der Camera Module 3 verwendet wird. Das Projekt ermöglicht präzise Objekterkennung in Echtzeit und unterstreicht die Relevanz von KI für die industrielle Automatisierung.
+In meiner Bachelorarbeit habe ich ein YOLOv8s-Modell trainiert, das speziell für die Objekterkennung von Bauklötzen entwickelt wurde und auf dem Raspberry Pi 5 mit dem AI Kit sowie der Camera Module 3 ausführbar ist.
 
 Diese GitHub-Seite bietet:
 - **Zugriff auf wichtige Dokumente, Codes und Ergebnisse**, um die Arbeit für Leser und Nutzer nachvollziehbar zu machen.
@@ -30,19 +30,19 @@ Diese Schritte umfassen den gesamten Entwicklungsprozess – von der Datensammlu
 ---
 
 ## 📸 Erstellen eines benutzerdefinierten Datensatzes mit Roboflow
-[Roboflow](https://roboflow.com/) bietet eine intuitive Plattform zur Erstellung, Annotation (detaillierte Beschreibungen und Abgrenzungen von Objekten in Bildern) und Verwaltung von Datensätzen. Mit über 110.000 öffentlich zugänglichen Datensätzen in [Roboflow Universe](https://universe.roboflow.com/) ist es eine vielseitige Lösung für verschiedene Anwendungsbereiche. 
+[Roboflow](https://roboflow.com/) bietet eine übersichtliche Plattform zur Erstellung, Annotation (Abgrenzungen von Objekten in Bildern) und Verwaltung von Datensätzen. Mit über 110.000 öffentlich zugänglichen Datensätzen in [Roboflow Universe](https://universe.roboflow.com/) ist es ein vielseitiges Werkzeug für verschiedene Anwendungsbereiche. 
 
-Im Folgenden wird gezeigt, wie ein benutzerdefinierter Datensatz erstellt werden kann:
+Im Folgenden wird gezeigt, wie ein benutzerdefinierter Datensatz erstellt werden kann.
 
 
 ### Schritt 1: Projekt erstellen:
-Zum Erstellen eines neuen Projekts ist die [Registrierung bei Roboflow](https://app.roboflow.com/login) erforderlich. Nach der Einrichtung eines Kontos kann ein Workspace benannt und ein neues Projekt im Dashboard angelegt werden. Die kostenlose Variante des Public Plans ist hierfür ausreichend:
+Zum Erstellen eines neuen Projekts ist die [Registrierung bei Roboflow](https://app.roboflow.com/login) erforderlich. Nach der Registrierung kann ein Workspace benannt und ein neues Projekt im Dashboard angelegt werden. Die kostenlose Variante des Public Plans ist hierfür ausreichend:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(10).gif?raw=true" alt="Demo" width="600">
 
 ### Schritt 2: Bilder hochladen:
-Bilder können in das neu erstellte Projekt hochgeladen werden. 
-Falls ein Datensatz bereits annotierte Dateien enthält, erkennt Roboflow diese automatisch und ordnet die Annotationen den entsprechenden Bildern zu.
+Bilder können in das neu erstellte Projekt hochgeladen werden.
+**Hinweis**: Falls ein Datensatz bereits annotierte Dateien enthält, können diese in Roboflow hochgeladen werden, wo sie automatisch erkannt und den entsprechenden Bildern zugeordnet werden:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(6).gif?raw=true" alt="Demo" width="600">
 
@@ -50,35 +50,37 @@ Falls ein Datensatz bereits annotierte Dateien enthält, erkennt Roboflow diese 
 ### Schritt 3: Labeln & Annotation:
 
 - **Manuelles Annotieren:**
-Diese Methode bietet maximale Kontrolle über die Präzision der Annotationen. Objekte können im Bild markiert und mit passenden Labels versehen werden. Allerdings ist dieser Prozess zeitaufwendiger:
+Diese Methode bietet maximale Kontrolle über die Präzision der Annotationen. Objekte können im Bild markiert und mit passenden Labels versehen werden. Allerdings ist dieser Prozess zeitaufwendig:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(3).gif?raw=true" alt="Demo" width="600">
 
 - **Auto-Labeling:**
-Die Auto-Labeling-Funktion automatisiert den Annotierungsprozess, indem Objekte im Bild erkannt und automatisch gelabelt werden. Diese Funktion ist besonders hilfreich, um Zeit zu sparen. Automatisch generierte Labels können überprüft und bei Bedarf angepasst werden.
+Die Auto-Labeling-Funktion automatisiert den Annotierungsprozess, indem sie nach einem kurzen begleiteten Training, bei dem das Objekt der KI beschrieben wird, die Objekte im Bild erkennt und den restlichen Datensatz automatisch labelt. Diese Funktion ist besonders hilfreich, um Zeit zu sparen. Automatisch generierte Labels können dann überprüft und bei Bedarf angepasst werden:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(9).gif?raw=true" alt="Demo" width="600">
 
+**Hinweis**: Nach dem Labeln und Annotieren wird die Aufteilung des Datensatzes in die drei Kategorien train, test und val abgefragt. Diese Trennung sollte bestätigt werden, da sie für das spätere Modelltraining von Bedeutung ist.
+
 ### Schritt 4: Neue Datensatzversion erstellen
-Nach Abschluss der Annotationen kann eine neue Version des Datensatzes generiert werden. Da YOLO-Modelle in einem quadratischen Format trainiert werden, empfiehlt es sich, die Bildgröße auf 640x640 zu setzen – eine Einstellung, die auch in dieser Arbeit verwendet wurde. Zusätzlich können Augmentationsmethoden wie Drehen, Skalieren oder das Anpassen von Helligkeit, Kontrast und Sättigung genutzt werden, um die Datenvielfalt und -robustheit zu erhöhen.
+Nach Abschluss der Annotationen kann eine neue Version des Datensatzes generiert werden. YOLO-Modelle werden in einem quadratischen Bildformat trainiert, weshalb der Datensatz in dieser Arbeit auf die Bildgröße 640x640 skaliert wurde. Zusätzlich können Augmentationsmethoden wie Drehen, Skalieren oder das Anpassen von Helligkeit, Kontrast und Sättigung genutzt werden, um die Datenvielfalt und -robustheit zu erhöhen.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(5).gif?raw=true" alt="Demo" width="600">
 
 ### Schritt 5: Datensatz exportieren
-Der Datensatz steht nach der Generierung in verschiedenen Formaten, beispielsweise YOLOv8-kompatibel, zum Export bereit. Es wird empfohlen, den Datensatz lokal auf dem Rechner zu speichern, da er für die spätere Konvertierung benötigt wird. Der Export kann lokal auf dem Rechner gespeichert oder über die API direkt in eine Trainingsumgebung wie Google Colab integriert werden.
+Der Datensatz steht nach der Generierung in verschiedenen Formaten, darunter im YOLOv8-Format, zum Export bereit. Der Datensatz sollte lokal auf dem Rechner gespeichert werden, da er für die spätere Konvertierung benötigt wird, der Export kann auch über die API direkt in eine Trainingsumgebung wie Google Colab integriert werden
 
-Im Beispiel wird gezeigt wie von , mein finaler .Im Beispiel wird gezeigt, wie mein finaler Datensatz, der speziell für diese Arbeit erstellt wurde, in [Roboflow Universe](https://universe.roboflow.com/) gefunden und heruntergeladen werden kann. Der Datensatz ist ebenfalls über folgenden [Direktlink](https://www.google.com/url?q=https%3A%2F%2Funiverse.roboflow.com%2Fbauklotz%2Fbauklotz-c8zsq%2Fdataset%2F1) verfügbar:
+Im Beispiel wird gezeigt, wie mein finaler Datensatz, der für diese Arbeit erstellt wurde, in [Roboflow Universe](https://universe.roboflow.com/) gefunden und heruntergeladen werden kann.
+Der Datensatz ist ebenfalls über folgenden [Direktlink](https://www.google.com/url?q=https%3A%2F%2Funiverse.roboflow.com%2Fbauklotz%2Fbauklotz-c8zsq%2Fdataset%2F1) einsehbar:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(11).gif?raw=true" alt="Demo" width="600">
 
-✔ Hinweis: Nach dem Export kann es sinnvoll sein, den Datensatz erneut zu importieren, um automatisch generierte Annotationen zu überprüfen und bei Bedarf Anpassungen vorzunehmen.
+✔ **Hinweis**: Nach dem Export wird empfohlen, den Datensatz erneut zu importieren, um automatisch generierte Annotationen zu überprüfen und bei Bedarf anzupassen.
 
 ---
 
 ## 2. **Trainieren des Modells und Validierung der Ergebnisse**
-Das Modelltraining wird in  durchgeführt, um die Datei best.pt zu generieren. Diese Datei enthält die optimierte Version des trainierten Modells und wird im nächsten Schritt für die Modellausführung auf dem Raspberry Pi 5 benötigt. 
 
-Das Modelltraining wird in [Google Colab](https://colab.research.google.com/drive/1halSc73m1BsovgJhM2FQkquQVUpD2_7B?usp=sharing) durchgeführt, um die Datei **best.pt** zu generieren. Dabei handelt es sich um eine PyTorch-Datei, die die optimierte Version des trainierten Modells enthält und als Grundlage für die Modellausführung auf dem Raspberry Pi 5 dient. Über [diesen Link](https://colab.research.google.com/drive/1halSc73m1BsovgJhM2FQkquQVUpD2_7B?usp=sharing) kann das Training direkt in Google Colab gestartet werden.
+Das Modelltraining wird in [Google Colab](https://colab.research.google.com/drive/1halSc73m1BsovgJhM2FQkquQVUpD2_7B?usp=sharing) durchgeführt, um die Datei **best.pt** zu generieren. Dabei handelt es sich um eine PyTorch-Datei, die die optimierte Version des trainierten Modells enthält und als Basis für die Modellausführung auf dem Raspberry Pi 5 verwendet wird. Über [diesen Link](https://colab.research.google.com/drive/1halSc73m1BsovgJhM2FQkquQVUpD2_7B?usp=sharing) kann das Modelltraining in Google Colab ausgeführt werden.
 
 ---
 
