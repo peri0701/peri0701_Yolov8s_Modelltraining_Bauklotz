@@ -84,7 +84,7 @@ Das Modelltraining wird in [Google Colab](https://colab.research.google.com/driv
 
 ---
 
-## 3. **Modellausführung auf dem Raspberry PI 5**
+## 3. **Ausführen des Modells auf dem Raspberry Pi 5**
 #### Übertragen der Modell-Datei
 Nach Erhalt der Datei **best.pt** kann diese über Google Drive auf den Raspberry Pi 5 heruntergeladen werden.
 
@@ -146,6 +146,8 @@ from ultralytics import YOLO
 
 # Kamera mit Picamera2 einrichten
 picam2 = Picamera2()
+
+# Bildgröße und Format angeben (Größe kann hier angepasst werden, z. B. (800, 800))
 picam2.preview_configuration.main.size = (800, 800)
 picam2.preview_configuration.main.format = "RGB888"
 picam2.preview_configuration.align()
@@ -182,6 +184,7 @@ while True:
         # Bounding  Box und Labels auf das Bild zeichnen
         label = f"{class_name} {confidence:.2f}"  # Klasse und Konfidenz anzeigen
         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)  # Bounding box (Begrenzungsrahmen)
+
         # Größe des Labels anpassen für bessere Lesbarkeit
         cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 2, cv2.LINE_AA)
 
@@ -204,37 +207,59 @@ Das folgende Bild zeigt die Ausgabe meines trainierten Modells. Die Objekte wurd
 
 ---
 
-## 4. **Modellkonvertierung in ONNX**
-Die Hailo SDK und der Hailo Data Compiler, die später für die Konvertierung des ONNX-Modells in das Hailo Execution Format (HEF) verwendet werden, unterstützen nur ONNX-Modelle bis zu einer bestimmten Opset-Version, die Versionen die ich genutzt habe besitzen eine Obergrenze bei Opset 9. Die Opset-Version definiert die Funktionen und Operatoren, die innerhalb des Modells verwendet werden können. Opset 9 ist eine stabile und weit unterstützte Version, die mit den meisten älteren Frameworks und Tools kompatibel ist, insbesondere mit der HEF-Pipeline.
+## 4. **Konvertieren des Modells in das ONNX-Format**
 
-Die Konvertierung von ONNX kann direkt über eine YOLO CLI von den zuvor heruntergeladenen Ultralytics Paketen durchgeführt werden kann:
+Das **ONNX-Format** (Open Neural Network Exchange) ist ein standardisiertes Austauschformat für neuronale Netzwerke, das die plattformübergreifende Nutzung von Modellen ermöglicht. Es erlaubt den Export von Modellen aus Frameworks wie PyTorch oder TensorFlow und deren Verwendung in anderen Umgebungen.
+
+Für die Konvertierung ist die Definition einer **Opset-Version** (Operations Set) erforderlich. Opset legt fest, welche Funktionen und Operatoren innerhalb des Modells genutzt werden können. In dieser Arbeit wurde **Opset 9** verwendet, da es stabil und weit verbreitet ist sowie mit der HEF-Pipeline von Hailo kompatibel.
+
+Die Konvertierung in das ONNX-Format erfolgt über die YOLO CLI der Ultralytics-Pakete mit folgendem Befehl:
+
 ```bash
 cd env
 yolo export model=best.pt imgsz=640 format=onnx opset=9
 ```
-Nach dem Durchführen des Befehls, erhält man folgende Ausgabe und die Information, das die ONNX Datei im selben Ordner, unserer venv, bei mir in "env" gespeichert wurde:
+Nach der erfolgreichen Ausführung wird die ONNX-Datei im Arbeitsverzeichnis der virtuellen Umgebung gespeichert. Die Ausgabe der Konsole bestätigt die erfolgreiche Konvertierung.
 
 ![Image](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/onnx_conversion.png)
 
 ---
-## 5. **Modellkonvertierung in HEF**
+## 5. **Konvertieren des ONNX-Modells in das HEF-Format**
 
-### 1.Linux-Umfeld herstellen (WSL & Ubuntu 22.04)
-Um ein trainiertes Modell auf dem Raspberry Pi AI Kit mit der Hailo-Hardware auszuführen, ist eine Konvertierung des Modells in das Hailo Execution Format (HEF) notwendig. Da die Hailo-Software derzeit ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von WSL (Windows Subsystem for Linux) eine einfache Lösung für Windows-Nutzer. 
+### 1.Einrichtung einer Linux-Umgebung mit WSL und Ubuntu 22.04
 
-Die Ubuntu 22.04-Version wird zusätzlich über den Microsoft Store heruntergeladen, um eine separate Linux-Applikation bereitzustellen. Obwohl dieser Schritt im ursprünglichen Tutorial nicht vorgesehen war, hat sich die Methode als erfolgreich erwiesen und bietet den Vorteil einer isolierten Arbeitsumgebung mit erhöhter Flexibilität – weshalb ich diese Methode ebenfalls empfehlen würde:
+Für die Ausführung eines trainierten Modells auf dem Raspberry Pi AI Kit mit der Hailo-Hardware ist eine Konvertierung des Modells in das **Hailo Execution Format** (HEF) erforderlich. Da die Hailo-Software ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von **Windows Subsystem for Linux** (WSL) eine einfache Lösung für Windows-Nutzer.
+
+Die Nutzung von WSL ermöglicht es, eine Linux-Umgebung direkt unter Windows einzurichten. Dies bietet die Vorteile einer isolierten Arbeitsumgebung und eines nahtlosen Übergangs zwischen beiden Betriebssystemen. Die Ubuntu 22.04-Distribution kann entweder über den Microsoft Store heruntergeladen oder direkt in der PowerShell installiert und verwendet werden.
 
 <img src="https://github.com/user-attachments/assets/89f280d0-903b-4719-9b9d-d328ea8e20bd"  width="400">
 
-Mit WSL kann eine Ubuntu-Umgebung direkt auf Windows eingerichtet werden, wodurch der gesamte Prozess der Modellkonvertierung wie auf einem nativen Linux-System durchgeführt werden kann, dazu muss zunächst die Powershell geöffnet werden:
+#### Schritte zur Einrichtung der Linux-Umgebung:
+
+#### 1. PowerShell öffnen:
+Die PowerShell auf dem Windows-System starten, um die notwendigen Befehle auszuführen.
+
+#### 2. Verfügbare Linux-Distributionen anzeigen:
+Der folgende Befehl zeigt eine Liste der verfügbaren Linux-Distributionen an:
 
 ```powershell
 wsl --list --online
 ```
+
+#### 3. Ubuntu 22.04 installieren:
+
+Die gewünschte Linux-Distribution (hier Ubuntu 22.04) wird mit folgendem Befehl installiert:
+
+
 ```powershell
 wsl --install -d Ubuntu-22.04
 ```
-Nach diesem Schritt wird gebeten ein Benutzername und Passwort anzugeben. Das Passwort wird bei allen "sudo" Befehlen angefragt im Ubutu Umfeld
+
+#### 4. Benutzername und Passwort festlegen:
+Während des Installationsprozesses wird ein Benutzername und ein Passwort für die zukünftige Verwendung mit **"sudo"**-Befehlen benötigt.
+
+#### 5. System aktualisieren:
+Die Paketlisten werden aktualisiert und ein System-Upgrade durchgeführt, um sicherzustellen, dass alle Pakete auf dem neuesten Stand sind:
 
 ```powershell
 sudo apt update
@@ -242,7 +267,13 @@ sudo apt update
 ```powershell
 sudo apt upgrade
 ```
-Ab hier kann bei Bedarf in die Applikation gewechselt werden.
+
+#### Hinweise:
+
+- Das Präfix **sudo** (Superuser Do) ermöglicht die Ausführung von Befehlen mit Administratorrechten. Dies ist erforderlich, um Änderungen am System vorzunehmen.
+
+- Nach der Installation und Einrichtung von Ubuntu wurde die Applikation genutzt, um die weiteren Schritte der Modellkonvertierung und Vorbereitung durchzuführen.
+
 
 ### 2. Hailo Data Compiler herunterladen 
 
