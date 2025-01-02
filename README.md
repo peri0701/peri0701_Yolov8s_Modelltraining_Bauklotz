@@ -1,5 +1,5 @@
 ![Banner](https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Banner_GitHub%20(2).png)
-[![Öffnen in Colab](https://img.shields.io/badge/Open%20in%20Colab-grey?style=flat-square&logo=google-colab&logoColor=F9AB00&labelColor=grey&color=F9AB00)](https://colab.research.google.com/drive/1HF5Xfw9nkeZR3tsj--SE_Bm7zlQYZkEw?usp=sharing)
+[![Öffnen in Colab](https://img.shields.io/badge/Open%20in%20Colab-grey?style=flat-square&logo=google-colab&logoColor=F9AB00&labelColor=grey&color=F9AB00)](https://colab.research.google.com/drive/1halSc73m1BsovgJhM2FQkquQVUpD2_7B?usp=sharing)
 
 
 Willkommen auf der Github Seite zu meiner **Bachelorarbeit**:  
@@ -78,7 +78,7 @@ Im Beispiel wird gezeigt wie von , mein finaler .Im Beispiel wird gezeigt, wie m
 ## 2. **Trainieren des Modells und Validierung der Ergebnisse**
 Das Modelltraining wird in  durchgeführt, um die Datei best.pt zu generieren. Diese Datei enthält die optimierte Version des trainierten Modells und wird im nächsten Schritt für die Modellausführung auf dem Raspberry Pi 5 benötigt. 
 
-Das Modelltraining wird in [Google Colab](https://colab.research.google.com/drive/1HF5Xfw9nkeZR3tsj--SE_Bm7zlQYZkEw?usp=sharing) durchgeführt, um die Datei **best.pt** zu generieren. Dabei handelt es sich um eine PyTorch-Datei, die die optimierte Version des trainierten Modells enthält und als Grundlage für die Modellausführung auf dem Raspberry Pi 5 dient. Über [diesen Link](https://colab.research.google.com/drive/1HF5Xfw9nkeZR3tsj--SE_Bm7zlQYZkEw?usp=sharing) kann das Training direkt in Google Colab gestartet werden.
+Das Modelltraining wird in [Google Colab](https://colab.research.google.com/drive/1halSc73m1BsovgJhM2FQkquQVUpD2_7B?usp=sharing) durchgeführt, um die Datei **best.pt** zu generieren. Dabei handelt es sich um eine PyTorch-Datei, die die optimierte Version des trainierten Modells enthält und als Grundlage für die Modellausführung auf dem Raspberry Pi 5 dient. Über [diesen Link](https://colab.research.google.com/drive/1halSc73m1BsovgJhM2FQkquQVUpD2_7B?usp=sharing) kann das Training direkt in Google Colab gestartet werden.
 
 ---
 
