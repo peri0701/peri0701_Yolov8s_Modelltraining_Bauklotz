@@ -19,10 +19,15 @@ Diese GitHub-Seite bietet:
 
 ## 📂 Schritte der Projektumsetzung
 **1. Erstellen eines benutzerdefinierten Datensatzes mit Roboflow**
+
 **2. Trainieren des Modells und Validierung der Ergebnisse**
+
 **3. Ausführen des Modells auf dem Raspberry Pi 5**
+
 **4. Konvertieren des Modells in das ONNX-Format**
+
 **5. Konvertieren des ONNX-Modells in das HEF-Format**
+
 **6. Ausführen des konvertierten Modells auf dem Raspberry Pi 5 & AI Kit**
    
 Diese Schritte beschreiben den gesamten Entwicklungsprozess, angefangen bei der Datensammlung und Vorbereitung über die Modelltrainings- und Konvertierungsphasen bis hin zur finalen Anwendung des Modells auf der Hardware.
