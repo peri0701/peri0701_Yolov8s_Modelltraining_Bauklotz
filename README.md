@@ -60,7 +60,7 @@ Die Auto-Labeling-Funktion automatisiert den Annotierungsprozess, indem Objekte 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(9).gif?raw=true" alt="Demo" width="600">
 
 ### Schritt 4: Neue Datensatzversion erstellen
-Nach Abschluss der Annotationen kann eine neue Version des Datensatzes generiert werden. Da YOLO-Modelle in einem quadratischen Format trainiert werden, empfiehlt es sich, die Bildgröße auf 640x640 zu setzen – eine Einstellung, die auch in dieser Arbeit verwendet wurde. Zusätzlich können Augmentationsmethoden angewendet werden, um die Bilder durch Transformationen wie Drehen, Skalieren oder Hinzufügen von Rauschen künstlich zu erweitern. Diese Verfahren erhöhen die Vielfalt und Robustheit der Daten:
+Nach Abschluss der Annotationen kann eine neue Version des Datensatzes generiert werden. Da YOLO-Modelle in einem quadratischen Format trainiert werden, empfiehlt es sich, die Bildgröße auf 640x640 zu setzen – eine Einstellung, die auch in dieser Arbeit verwendet wurde. Zusätzlich können Augmentationsmethoden wie Drehen, Skalieren oder das Anpassen von Helligkeit, Kontrast und Sättigung genutzt werden, um die Datenvielfalt und -robustheit zu erhöhen.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(5).gif?raw=true" alt="Demo" width="600">
 
