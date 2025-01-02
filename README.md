@@ -25,7 +25,7 @@ Diese GitHub-Seite bietet:
 5. Konvertieren des ONNX-Modells in das HEF-Format
 6. Ausführen des konvertierten Modells auf dem Raspberry Pi 5 & AI Kit
    
-Diese Schritte umfassen den gesamten Entwicklungsprozess – von der Datensammlung über das Modelltraining bis hin zur finalen Anwendung auf der Hardware.Im Folgenden wird auf jede Projektphase detailliert eingegangen, um die Umsetzung und die verwendeten Methoden näher zu erläutern.
+Diese Schritte umfassen den gesamten Entwicklungsprozess – von der Datensammlung über das Modelltraining bis hin zur finalen Anwendung auf der Hardware. Im Folgenden wird auf jede Projektphase detailliert eingegangen, um die Umsetzung und die verwendeten Methoden näher zu erläutern.
 
 ---
 
