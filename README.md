@@ -21,6 +21,10 @@ Diese GitHub-Seite bietet:
 1. Erstellung eines benutzerdefinierten Datensatzes mit Roboflow
 2. Modelltraining
 3. Modellausführung auf dem Raspberry PI 5
+4. Modellkonvertierung in ONNX
+5. Modellkonvertierung in HEF
+6. Modellausführung auf dem Raspberry PI 5 & Ai KIT
+
 ---
 
 ## 📸 Erstellung eines benutzerdefinierten Datensatzes mit Roboflow
@@ -75,7 +79,7 @@ Das Modelltraining wird in [Google Colab](https://colab.research.google.com/driv
 
 ---
 
-### 3. **Modellausführung auf dem Raspberry PI 5**
+## 3. **Modellausführung auf dem Raspberry PI 5**
 Nach dem Erhalt der best.pt Datei, kann diese über Google Drive auf dem Raspberry Pi 5 heruntergeladen werden.
 
 Für die Nutzung müss zunächst eine virtuelle Umgebung aufgesetzt werden. Diese ermöglichen es, Projekte in isolierten virtuellen Räumen auszuführen, ohne das restliche Betriebssystem oder andere installierte Pakete zu beeinträchtigen. Dadurch können Änderungen und Experimente sicher durchgeführt werden, ohne Risiken für die Stabilität des Systems.
@@ -173,7 +177,7 @@ Hier ein Beipiel von der Ausgabe meines Modells:
 
 ---
 
-### 4. **Modellkonvertierung in ONNX**
+## 4. **Modellkonvertierung in ONNX**
 Die Hailo SDK und der Hailo Data Compiler, die später für die Konvertierung des ONNX-Modells in das Hailo Execution Format (HEF) verwendet werden, unterstützen nur ONNX-Modelle bis zu einer bestimmten Opset-Version, die Versionen die ich genutzt habe besitzen eine Obergrenze bei Opset 9. Die Opset-Version definiert die Funktionen und Operatoren, die innerhalb des Modells verwendet werden können. Opset 9 ist eine stabile und weit unterstützte Version, die mit den meisten älteren Frameworks und Tools kompatibel ist, insbesondere mit der HEF-Pipeline.
 
 Die Konvertierung von ONNX kann direkt über eine YOLO CLI von den zuvor heruntergeladenen Ultralytics Paketen durchgeführt werden kann:
