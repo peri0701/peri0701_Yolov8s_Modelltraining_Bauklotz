@@ -7,7 +7,7 @@ Willkommen auf der Github Seite zu meiner **Bachelorarbeit**:
 
 ---
 
-## 🎯 Übersicht
+## 🎯 Projektübersicht
 
 In meiner Bachelorarbeit habe ich ein YOLOv8s-Modell entwickelt, das speziell zur Objekterkennung von Bauklötzen auf dem Raspberry Pi 5 mit dem AI Kit und der Camera Module 3 verwendet wird.Dieses Projekt ermöglicht präzise Objekterkennung in Echtzeit und zeigt das Potenzial KI-gestützter Anwendungen für industrielle Automatisierung.
 
@@ -17,15 +17,15 @@ Diese GitHub-Seite bietet:
 
 ---
 
-## 📂 Projektphasen
-1. Erstellen eines benutzerdefinierten Datensatzes mit Roboflow
+## 📂 Schritte der Projektumsetzung
+**1. Erstellen eines benutzerdefinierten Datensatzes mit Roboflow
 2. Trainieren des Modells und Validierung der Ergebnisse
 3. Ausführen des Modells auf dem Raspberry Pi 5
-4. Modellkonvertierung in ONNX
-5. Modellkonvertierung in HEF
-6. Modellausführung auf dem Raspberry PI 5 & Ai KIT
+4. Konvertieren des Modells in das ONNX-Format
+5. Konvertieren des ONNX-Modells in das HEF-Format
+6. Ausführen des konvertierten Modells auf dem Raspberry Pi 5 & AI Kit**
    
-Diese Schritte zeigen den gesamten Entwicklungsprozess, von der Datensammlung bis hin zur finalen Anwendung auf der Hardware.
+Diese Schritte beschreiben den gesamten Entwicklungsprozess, angefangen bei der Datensammlung und Vorbereitung über die Modelltrainings- und Konvertierungsphasen bis hin zur finalen Anwendung des Modells auf der Hardware.
 
 ---
 
