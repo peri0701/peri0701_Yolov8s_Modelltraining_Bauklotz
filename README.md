@@ -85,92 +85,114 @@ Das Modelltraining wird in [Google Colab](https://colab.research.google.com/driv
 ---
 
 ## 3. **Modellausführung auf dem Raspberry PI 5**
-Nach dem Erhalt der best.pt Datei, kann diese über Google Drive auf dem Raspberry Pi 5 heruntergeladen werden.
+#### Übertragen der Modell-Datei
+Nach Erhalt der Datei **best.pt** kann diese über Google Drive auf den Raspberry Pi 5 heruntergeladen werden.
 
-Für die Nutzung müss zunächst eine virtuelle Umgebung aufgesetzt werden. Diese ermöglichen es, Projekte in isolierten virtuellen Räumen auszuführen, ohne das restliche Betriebssystem oder andere installierte Pakete zu beeinträchtigen. Dadurch können Änderungen und Experimente sicher durchgeführt werden, ohne Risiken für die Stabilität des Systems.
+#### Einrichten der virtuellen Umgebung
+Für die Modellausführung ist zunächst eine virtuelle Umgebung erforderlich. Diese isoliert das Projekt, sodass es unabhängig vom restlichen Betriebssystem und anderen installierten Paketen ausgeführt werden kann, ohne die Stabilität des Systems zu gefährden.
 
-Mit diesem Befehl wird eine neue virtuelle Umgebung mit dem Namen yolo_object erstellt. Die Option --system-site-packages sorgt dafür, dass die virtuelle Umgebung Zugriff auf die global installierten Python-Pakete erhält.
+Mit folgendem Befehl wird eine neue virtuelle Umgebung namens **env** erstellt. Die Option **--system-site-packages** stellt sicher, dass die Umgebung Zugriff auf global installierte Python-Pakete hat:
+
 ```bash
-python3 -m venv --system-site-packages yolo_object 
+python3 -m venv --system-site-packages env
+```
+```bash
+source env/bin/activate
 ```
 
-Dieser Befehl aktiviert die zuvor erstellte virtuelle Umgebung yolo_object. Nach der Aktivierung laufen alle Python-Befehle und -Installationen innerhalb dieser isolierten Umgebung, um das Hauptsystem zu schütze
-```bash
-source yolo_object/bin/activate
-```
+#### Systemaktualisierung und Paketinstallation
+Das System wird aktualisiert, um sicherzustellen, dass die neuesten Paketlisten verfügbar sind und zukünftige Installationen reibungslos verlaufen. Zusätzlich wird der Python-Paketmanager installiert und auf die neueste Version aktualisiert, um die Kompatibilität mit modernen Bibliotheken zu gewährleisten:
 
-Das System wird zunächst aktualisiert, um sicherzustellen, dass die neuesten Paketlisten geladen sind und zukünftige Installationen reibungslos verlaufen. Danach wird ein wichtiger Paketmanager für Python installiert, der die Verwaltung von Bibliotheken und Abhängigkeiten erleichtert. Schließlich wird dieser Paketmanager auf die neueste Version aktualisiert, um die Kompatibilität mit modernen Python-Bibliotheken sicherzustellen.
 ```bash
 sudo apt update
 sudo apt install python3-pip -y
 pip install -U pip
 ```
 
-Dieser Befehl installiert die YOLOv8-Bibliothek ultralytics zusammen mit allen für den Export notwendigen zusätzlichen Paketen. Damit wird die Objekterkennung mit YOLO auf dem Raspberry Pi ermöglicht.
+#### Installation der YOLOv8-Bibliothek
+Die YOLOv8-Bibliothek von Ultralytics wird zusammen mit allen für den Export erforderlichen Paketen installiert. Dies ermöglicht die Durchführung der Objekterkennung mit YOLO auf dem Raspberry Pi:
+
 ```bash
 pip install ultralytics[export]
 ```
+#### Systemneustart
 
-Ein Neustart des Systems stellt sicher, dass alle Änderungen, wie die Installation von Paketen und Systemaktualisierungen, korrekt übernommen werden.
+Ein Neustart des Systems stellt sicher, dass alle vorgenommenen Änderungen und Installationen übernommen wurden:
+
 ```bash
 sudo reboot
 ```
 ### Nutzung von Thonny
-Thonny ist eine benutzerfreundliche Entwicklungsumgebung für Python, die sich ideal für Projekte wie die Objekterkennung mit YOLO auf dem Raspberry Pi eignet. Sie unterstützt die Arbeit in virtuellen Umgebungen (venv), wodurch Skripte sicher getestet und ausgeführt werden können, ohne das Hauptsystem des Raspberry Pi zu beeinträchtigen, und erleichtert so die Entwicklung direkt auf der Plattform.
- Innerhalb von Thonny kann man dann die entsprechende virtuelle Umgebung auswählen, wodurch alle Skripte und Pakete, die in diesem Projekt verwendet werden, in der isolierten Umgebung bleiben: Hier ein Video, wie die Verknüpfung von Thony mit der venv erfolgen sollte:
+Thonny ist eine benutzerfreundliche Entwicklungsumgebung für Python, die sich ideal für Projekte wie die Objekterkennung mit YOLO auf dem Raspberry Pi eignet. Sie ermöglicht das Arbeiten in virtuellen Umgebungen (venv), wodurch Skripte sicher getestet und ausgeführt werden können, ohne das Hauptsystem des Raspberry Pi zu beeinträchtigen. Dies erleichtert die Entwicklung direkt auf der Plattform. 
+
+Innerhalb von Thonny kann die entsprechende virtuelle Umgebung auswählt erden.
+Dadurch bleiben alle Skripte und Pakete des Projekts in der isolierten Umgebung und beeinflussen nicht das globale System.
+
+Im folgenden Video wird gezeigt, wie die Verknüpfung von Thonny mit der venv eingerichtet wird:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20%26%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(12).gif?raw=true" alt="Demo" width="600">
 
-Der Ordner der virtuellen Umgebung (venv) befindet sich standardmäßig im aktuellen Arbeitsverzeichnis, in dem der Befehl zur Erstellung ausgeführt wurde. Auf dem Raspberry Pi liegt dieses Verzeichnis meist im Home-Verzeichnis des Benutzers, beispielsweise in /home/pi/. Wird die virtuelle Umgebung mit dem Namen yolo_object erstellt, befindet sich diese anschließend als Unterordner im Home-Verzeichnis unter /home/pi/yolo_object, sofern kein anderes Verzeichnis angegeben wurde. Hier ist das Skript, das in die Benutzeroberfläche eingefügt werden sollte, für das Ausführen des Modells, das vorher in den Ordner der venv gespeichert werden sollte:
+#### Speicherort der virtuellen Umgebung und Ausführung des Modells
+
+Der Ordner der virtuellen Umgebung (venv) wird standardmäßig im aktuellen Arbeitsverzeichnis erstellt, in dem der entsprechende Befehl ausgeführt wurde. Auf dem Raspberry Pi befindet sich dieses Verzeichnis in der Regel im Home-Verzeichnis des Benutzers, beispielsweise unter **/home/robolab/**. Wird die virtuelle Umgebung mit dem Namen **env** erstellt, liegt diese anschließend im Home-Verzeichnis unter **/home/robolab/env**, sofern kein alternatives Verzeichnis angegeben wurde.
+
+Das folgende Skript sollte in die Benutzeroberfläche von Thonny eingefügt werden. Es dient der Ausführung des Modells (**best.pt**), das zuvor im Ordner der virtuellen Umgebung gespeichert wurde:
+
 
 ```python
 import cv2
 from picamera2 import Picamera2
 from ultralytics import YOLO
 
-# Set up the camera with Picam
+# Kamera mit Picamera2 einrichten
 picam2 = Picamera2()
-picam2.preview_configuration.main.size = (1280, 1280)
+picam2.preview_configuration.main.size = (800, 800)
 picam2.preview_configuration.main.format = "RGB888"
 picam2.preview_configuration.align()
 picam2.configure("preview")
 picam2.start()
 
-# Load YOLOv8
-model = YOLO("yolov8n.pt")
+# YOLOv8s-Modell laden
+model = YOLO("best.pt")  # Enable YOLO's default logging
+
+# Klassennamen definieren
+class_names = {0: "Bauklotz"}  # Verknüpft Klassenindizes mit Klassennamen
 
 while True:
-    # Capture a frame from the camera
+    # Einzelbild von der Kamera erfassen
     frame = picam2.capture_array()
     
-    # Run YOLO model on the captured frame and store the results
+    # YOLO-Modell auf das erfasste Bild anwenden und Ergebnisse speichern
     results = model(frame)
-    
-    # Output the visual detection data, we will draw this on our camera preview window
-    annotated_frame = results[0].plot()
-    
-    # Get inference time
-    inference_time = results[0].speed['inference']
-    fps = 1000 / inference_time  # Convert to milliseconds
-    text = f'FPS: {fps:.1f}'
+    detections = results[0].boxes.xyxy  # Extrahiere Koordinaten der Begrenzungsrahmen
+    classes = results[0].boxes.cls     # Extrahiere Klassenindizes
+    confidences = results[0].boxes.conf  # Extrahiere Konfidenzwerte
 
-    # Define font and position
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    text_size = cv2.getTextSize(text, font, 1, 2)[0]
-    text_x = annotated_frame.shape[1] - text_size[0] - 10  # 10 pixels from the right
-    text_y = text_size[1] + 10  # 10 pixels from the top
+    # Zusätzliche Erkennungsdetails mit Koordinaten ausgeben
+    print("\nKoordinaten:")
+    for i, box in enumerate(detections):
+        x1, y1, x2, y2 = map(int, box)  # Koordinaten als absolute Pixelwerte
+        class_index = int(classes[i])
+        class_name = class_names.get(class_index, "Unknown") # Klassennamen anhand des Index abrufen
+        confidence = confidences[i] # Konfidenzwert für die aktuelle Erkennung
 
-    # Draw the text on the annotated frame
-    cv2.putText(annotated_frame, text, (text_x, text_y), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+        # Erkennungsdetails ausgeben
+        print(f"Object {i+1}: {class_name}, Confidence: {confidence:.2f}, Coordinates: ({x1}, {y1}, {x2}, {y2})")
 
-    # Display the resulting frame
-    cv2.imshow("Camera", annotated_frame)
+        # Bounding  Box und Labels auf das Bild zeichnen
+        label = f"{class_name} {confidence:.2f}"  # Klasse und Konfidenz anzeigen
+        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)  # Bounding box (Begrenzungsrahmen)
+        # Größe des Labels anpassen für bessere Lesbarkeit
+        cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 2, cv2.LINE_AA)
 
-    # Exit the program if q is pressed
+    # Bild mit den Ergebnissen anzeigen
+    cv2.imshow("Camera", frame)
+
+    # Programm beenden, wenn "q" gedrückt wird
     if cv2.waitKey(1) == ord("q"):
         break
 
-# Close all windows
+# Alle Fenster schließen
 cv2.destroyAllWindows()
 ```
 Hier ein Beipiel von der Ausgabe meines Modells:
