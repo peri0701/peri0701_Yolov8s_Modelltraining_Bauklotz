@@ -42,7 +42,6 @@ Zum Erstellen eines neuen Projekts ist die [Registrierung bei Roboflow](https://
 
 ### Schritt 2: Bilder hochladen:
 Bilder können in das neu erstellte Projekt hochgeladen werden. 
-
 Falls ein Datensatz bereits annotierte Dateien enthält, erkennt Roboflow diese automatisch und ordnet die Annotationen den entsprechenden Bildern zu.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(6).gif?raw=true" alt="Demo" width="600">
