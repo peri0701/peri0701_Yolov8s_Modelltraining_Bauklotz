@@ -365,14 +365,16 @@ Beim Herunterladen des Datensatzes wurden Bilder und Annotationen in drei Ordner
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/trsin_folder.jpeg?raw=true" width="400">
 
 ### 3. Konfigurationsdateien im Hailo Model Zoo anpassen
-Viele machen den Fehler, bereits jetzt den Befehl zur Performance-Optimierung auszuführen, ohne sicherzustellen, dass alle Konfigurationsdateien korrekt angepasst sind. Im Hintergrund müssen folgende Skripte bearbeitet werden:
+Viele machen den Fehler, bereits jetzt den Befehl zur Performance-Optimierung auszuführen, ohne sicherzustellen, dass alle Konfigurationsdateien korrekt angepasst sind. 
+
+Es müssen folgende Skripte erst angepasst werden:
 
 #### a.) yolov8s.yaml
 Diese Datei ist eine zentrale Konfigurationsdatei des Hailo Model Zoo und definiert alle Parameter für das Parsing, die Optimierung und die Kompilierung des Modells. Sie befindet sich im Verzeichnis: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > networks.**
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="500">
 
-In der Konfigurationsdatei yolov8s.yaml sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
+In der Konfigurationsdatei **yolov8s.yaml** sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
 
 ```yaml
 base:
@@ -386,8 +388,9 @@ network:
 paths:
   network_path:
   - best.onnx #Hier muss der genaue Pfad zur ONNX Datei angegeben werden 
-  alls_script: hailo_model_zoo/hailo_model_zoo/cfg/alls/yolov8s.alls #Hier muss der genaue Pfad zur yolov8s.alls Datei angegeben werden 
-  url: https://hailo-model-zoo.s3.eu-west-2.amazonaws.com/ObjectDetection/Detection-COCO/yolo/yolov8s/2023-02-02/yolov8s.zip
+  alls_script: hailo_model_zoo/hailo_model_zoo/cfg/alls/yolov8s.alls #Pfad zur ONNX-Datei angeben, die im vorherigen Schritt generiert wurde.
+
+  url: #URL leer stehen lassen
 parser:
   nodes:
   - null
@@ -400,9 +403,9 @@ parser:
 info:
   task: object detection
   input_shape: 640x640x3
-  output_shape: 1x5x100 #Erste Zahl steht für die Klasse (1=Bauklotz)
-  operations: 28.4G #Entspricht GFLOPs der "Model Summary(fused)"   Angabe meines Modeltrainings
-  parameters: 11.125M #Entspricht den parametern der "Model Summary(fused)" des Modelltrainings 
+  output_shape: 1x5x100 #Die erste Zahl gibt die Anzahl der erkannten Klassen an (1=Bauklotz).
+  operations: 28.4G # GFLOPS entspricht der Angabe in der "Model Summary (fused)" aus dem Modelltraining in Google Colab
+  parameters: 11.125M # Parameteranzahl basierend auf der 'Model Summary (fused)' aus Google Colab
   framework: pytorch
   training_data: coco train2017
   validation_data: coco val2017
@@ -413,9 +416,32 @@ info:
   license_name: GPL-3.0
 
 ```
+Die **Parameteranzahl** und die **GFLOPS** (Giga Floating Point Operations per Second) des Modells können direkt aus den Ergebnissen des Modelltrainings in Google Colab abgelesen werden:
+
+![image](https://github.com/user-attachments/assets/28d0eb7f-9862-49c5-9f83-c0ae7ab9c664)
 
 
-#### b.) yolov8s_nms_config.json
+
+### b.) yolov8s.alls
+
+definiert spezifische Parameter und Einstellungen für die Optimierung und Konvertierung des Modells, einschließlich der Aktivierungsfunktionen (z. B. Sigmoid).
+Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > alls > generic.**
+
+![image](https://github.com/user-attachments/assets/2905ce2d-8423-4528-ace4-11579f15bf11)
+
+In der Konfigurationsdatei **yolov8s.alls** sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
+
+```plaintext
+quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0]) #Diese Zeile ergänzen, um die Quantisierung auf die angegebenen Layer anzuwenden.
+normalization1 = normalization([0.0, 0.0, 0.0], [255.0, 255.0, 255.0])
+change_output_activation(conv42, sigmoid)
+change_output_activation(conv53, sigmoid)
+change_output_activation(conv63, sigmoid)
+performance_param(compiler_optimization_level=max) #Zeile ergänzen
+nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yolov8, engine=cpu) # Pfad zur yolov8s_nms_config.json überprüfen, um das Post-Processing korrekt zu konfigurieren.“
+```
+
+#### c.) yolov8s_nms_config.json
 
 Die yolov8s_nms_config.json-Datei legt die Parameter für das NMS (Non-Maximum Suppression)-Postprocessing fest. Sie wird vom Dataflow Compiler genutzt, um die Nachbearbeitungsschritte für das Netzwerk zu konfigurieren. Während die voreingestellten Werte für viele Netzwerke geeignet sind, ist eine Anpassung notwendig, wenn sich Hyperparameter ändern. Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > postprocess_config**
 
@@ -429,10 +455,10 @@ In der Konfigurationsdatei **yolov8s_nms_config.json** sind die folgenden Änder
 	"nms_iou_th": 0.7,
 	"image_dims": [
 		640,
-		640 
+		640 // Bilddimensionen an die Trainingsparameter des Modells anpassen (z. B. 640x640).
 	],
 	"max_proposals_per_class": 100,
-	"classes": 1,
+	"classes": 1, //Klassenanzahl entsprechend des eigenen Modells anpassen (hier: 1 für Bauklotz).
 	"regression_length": 16,
 	"background_removal": false,
 	"background_removal_index": 0,
@@ -459,24 +485,6 @@ In der Konfigurationsdatei **yolov8s_nms_config.json** sind die folgenden Änder
 }
 ```
 
-### c.) yolov8s.alls
-
-definiert spezifische Parameter und Einstellungen für die Optimierung und Konvertierung des Modells, einschließlich der Aktivierungsfunktionen (z. B. Sigmoid).
-Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > alls > generic.**
-
-![image](https://github.com/user-attachments/assets/2905ce2d-8423-4528-ace4-11579f15bf11)
-
-In der Konfigurationsdatei **yolov8s.alls** sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
-
-```plaintext
-quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0])
-normalization1 = normalization([0.0, 0.0, 0.0], [255.0, 255.0, 255.0])
-change_output_activation(conv42, sigmoid)
-change_output_activation(conv53, sigmoid)
-change_output_activation(conv63, sigmoid)
-performance_param(compiler_optimization_level=max)
-nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yolov8, engine=cpu)
-```
 
 Dieser Befehl startet die Optimierung. **Hinweis:** Die Optimierung ist zeitaufwändig und kann je nach Leistung des Systems bis zu vier Stunden dauern.
 
