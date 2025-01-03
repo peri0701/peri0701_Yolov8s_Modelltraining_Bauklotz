@@ -351,21 +351,27 @@ cd hailo_model_zoo; pip install -e .
 
 ## 5. Vorbereitung auf die HEF Konverterierung 
 
-Nun muss wie vorher die heruntergeladene Hailo Datafllow Compiler auch unsere zuvor generierte best.onnx Datei in das Ubuntu Verzeichnis gezogen werden - Vom Raspberry Pi kann diese über Google Drive auf dem Rechner heruntergeladen werden.
+Um die HEF-Konvertierung vorzubereiten, müssen mehrere Dateien und Skripte angepasst und in das richtige Verzeichnis verschoben werden. Hier eine Übersicht der erforderlichen Schritte:
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/best.jpeg?raw=true"  width="400">
+### 1. best.onnx Datei übertragen
 
-Beim Herunterladen des Datensatzes wurdn die Bilder und Annotationen in drei Ordner Strukturen aufgeteilt, train, val und test. Der train Ordner, muss ebenfalls in das Ubuntu Umfeld gezogen werden.
+Die zuvor generierte **best.onnx**-Datei muss aus dem Raspberry Pi über Google Drive auf dem Rechner heruntergeladen und in das Ubuntu-Home-Verzeichnis verschoben werden. Dieser Schritt stellt sicher, dass alle benötigten Ressourcen an einem Ort für die Konvertierung bereitstehen:
 
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/best.jpeg?raw=true"  width="500">
+
+### 2. Datensatz vorbereiten
+Beim Herunterladen des Datensatzes wurden Bilder und Annotationen in drei Ordner unterteilt: **train**, **val** und **test**. Der train-Ordner muss ebenfalls in das Ubuntu-Umfeld übertragen werden, um für die Konvertierung verfügbar zu sein:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/trsin_folder.jpeg?raw=true" width="400">
 
-Viele machen den Fehler den Befehl zur Performance Steigerung jetzt schon auszugeben, da man davon ausgehen kann, dass man alle Komponenten besitzt. Im Hintergrund müssen aber folgende Skripte im Hailo Model Zoo angepasst werden. Sie befinden sich im folgendem Verzeichis:
+### 3. Konfigurationsdateien im Hailo Model Zoo anpassen
+Viele machen den Fehler, bereits jetzt den Befehl zur Performance-Optimierung auszuführen, ohne sicherzustellen, dass alle Konfigurationsdateien korrekt angepasst sind. Im Hintergrund müssen folgende Skripte bearbeitet werden:
 
+#### a.) yolov8s.yaml
+Diese Datei ist eine zentrale Konfigurationsdatei des Hailo Model Zoo und enthält alle Parameter für Parsing, Optimierung und Kompilierung des Modells. Sie befindet sich im Verzeichnis: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > networks.**
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="500">
 
-Die yolov8s.yaml Datei kann im text.editor bearbeitet werden 
 
 ```yaml
 base:
@@ -405,19 +411,15 @@ info:
   license_url: https://github.com/ultralytics/ultralytics/blob/main/LICENSE
   license_name: GPL-3.0
 
-
-
-
-
-```bash
-hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/images --classes 1 --performance
 ```
-Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, die unter folgendem Verzeichnis zu finden sind im Ubuntu Verzeichnis:
 
-# 
+
+#### b.) yolov8s_nms_config.json
+
+Diese Datei steuert die Einstellungen für das NMS (Non-Maximum Suppression)-Postprocessing. Sie wird vom Dataflow Compiler verwendet, um die Post-Processing-Schritte für das Netzwerk zu definieren. Standardwerte sind für viele Standard-Netzwerke geeignet, müssen jedoch angepasst werden, wenn sich Hyperparameter ändern. Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > postprocess_config**
+
 ![image](https://github.com/user-attachments/assets/4172ebb3-c527-4208-8819-20472d413967)
 
-Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  # hier die Klassenanzahl angeben, hier 1
 
 ```json
 {
@@ -455,8 +457,13 @@ Gegebenfalls anpassen, mein Model ist auf ein 640x640 Format trainiert worden  #
 }
 ```
 
-#
+### c.) yolov8s.alls
+
+Diese Datei enthält spezifische Anweisungen für die Optimierung und Konvertierung des Modells. Parameter wie Aktivierungsfunktionen (z. B. Sigmoid) werden hier definiert.
+Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > alls > generic.**
+
 ![image](https://github.com/user-attachments/assets/2905ce2d-8423-4528-ace4-11579f15bf11)
+
 
 
 ```plaintext
@@ -469,52 +476,16 @@ performance_param(compiler_optimization_level=max)
 nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yolov8, engine=cpu)
 ```
 
+Dieser Befehl startet die Optimierung. **Hinweis:** Die Optimierung ist sehr zeitaufwendig, dass sie auf der CPU stattfindet, dieser Durchlauf hat 3 einhalb Stunden gedauert.
 
-#
-
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="400">
-
-```yaml
-base:
-- base/yolov8.yaml
-postprocessing:
-  device_pre_post_layers:
-    nms: true
-  hpp: true
-network:
-  network_name: yolov8s
-paths:
-  network_path:
-  - best.onnx #Hier muss der genaue Pfad zur ONNX Datei angegeben werden 
-  alls_script: hailo_model_zoo/hailo_model_zoo/cfg/alls/yolov8s.alls #Hier muss der genaue Pfad zur yolov8s.alls Datei angegeben werden 
-  url: https://hailo-model-zoo.s3.eu-west-2.amazonaws.com/ObjectDetection/Detection-COCO/yolo/yolov8s/2023-02-02/yolov8s.zip
-parser:
-  nodes:
-  - null
-  - - /model.22/cv2.0/cv2.0.2/Conv
-    - /model.22/cv3.0/cv3.0.2/Conv
-    - /model.22/cv2.1/cv2.1.2/Conv
-    - /model.22/cv3.1/cv3.1.2/Conv
-    - /model.22/cv2.2/cv2.2.2/Conv
-    - /model.22/cv3.2/cv3.2.2/Conv
-info:
-  task: object detection
-  input_shape: 640x640x3
-  output_shape: 1x5x100 #Erste Zahl steht für die Klasse (1=Bauklotz)
-  operations: 28.4G #Entspricht GFLOPs der "Model Summary(fused)"   Angabe meines Modeltrainings
-  parameters: 11.125M #Entspricht den parametern der "Model Summary(fused)" des Modelltrainings 
-  framework: pytorch
-  training_data: coco train2017
-  validation_data: coco val2017
-  eval_metric: mAP
-  full_precision_result: 44.75
-  source: https://github.com/ultralytics/ultralytics
-  license_url: https://github.com/ultralytics/ultralytics/blob/main/LICENSE
-  license_name: GPL-3.0
+```bash
+hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/images --classes 1 --performance
 ```
-
-Ist die Optimierung abgeschlossen, erhält die Information, dass die Hef datei gespeichert wurde.
+Ist die Optimierung abgeschlossen, erhält man die Information, dass die Hef datei gespeichert wurde.
 ![image](https://github.com/user-attachments/assets/7183d63d-2382-4a96-a527-8c46464e1d64)
+
+**Besonderheit:**
+Die Konvolutionsschichten (conv42, conv52, conv63) sind Bezeichnungen innerhalb des Hailo-internen Graphen, die nach dem Parsing des ONNX-Modells erstellt werden. Um diese Schichten zu analysieren, können Tools wie hailo visualizer yolov8s.har oder Netron verwendet werden.
 
 ---
 ## 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
