@@ -589,9 +589,9 @@ im Verzeichnis basic_pipeline werden Skripte für die Modellausführung abgelegt
 
 - **detection_pipeline.py** und **detection.py**: Standardmäßig im Repository enthalten. Diese Skripte können an spezifische Anforderungen angepasst werden.
   
-- **Bauklotz_detection.py:** Ein angepasstes Skript, das Bounding Boxen um erkannte Objekte zeichnet und relevante Informationen wie Klasse, Konfidenz und Verarbeitungsgeschwindigkeit anzeigt.
+- **Bauklotz_detection.py:** Mein angepasstes Skript, das Bounding Boxen um erkannte Objekte zeichnet und relevante Informationen wie Klasse, Konfidenz und Verarbeitungsgeschwindigkeit anzeigt.
 
-Das verwendete angepasste Skript lautet:
+Das folgende Skript (Bauklotz_detection.py) wird verwendet:
 
 ```python
 import gi
