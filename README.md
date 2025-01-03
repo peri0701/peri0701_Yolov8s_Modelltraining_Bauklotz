@@ -501,7 +501,9 @@ Nach erfolgreicher Optimierung wird die HEF-Datei im angegebenen Verzeichnis ges
 ---
 ## 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
 
-Zum Ausführen des Modells muss zunächst die geeignete Umgebung eingerichtet werden. Hierfür wird das Hailo-rpi5-Examples-Repository auf den Raspberry Pi heruntergeladen.
+### Einrichtung der Umgebung
+
+Für die Ausführung des Modells muss eine geeignete Arbeitsumgebung eingerichtet werden. Dazu wird das **ailo-rpi5-Examples**-Repository auf den Raspberry Pi heruntergeladen:
 
 ```bash
 git clone https://github.com/hailo-ai/hailo-rpi5-examples.git
@@ -512,7 +514,7 @@ cd hailo-rpi5-examples
 ```bash
 ./install.sh
 ```
-Sollte das Skript **./install.sh** nicht wie vorgesehen funktionieren, gibt es eine alternative Möglichkeit, die benötigten Pakete herunterzuladen. Hierbei wird die virtuelle Umgebung (venv) manuell eingerichtet:
+Sollte das Skript **./install.sh** nicht wie vorgesehen funktionieren und das Herunterladen von Paketen scheitern, gibt es eine alternative Methode. Die benötigten Pakete können manuell installiert werden, indem eine virtuelle Umgebung wie folgt eingerichtet wird:
 
 ```bash
 source setup_env.sh
@@ -527,9 +529,9 @@ pip install -r requirements.txt
 ./compile_postprocess.sh
 ```
 
-Nach dem Schließen der virtuellen Umgebung muss für eine neue Terminalsitzung mit den installierten Paketen stets das Skript **source setup_env.sh** ausgeführt werden.
+Nach dem Schließen der virtuellen Umgebung **venv_hailo_rpi5_examples** muss für jede neue Terminalsitzung mit den installierten Paketen stets das Skript **source setup_env.sh** ausgeführt werden.
 
-**Hinweis:** Das Verzeichnis **hailo-rpi5-examples** muss vor der Ausführung als aktuelles Arbeitsverzeichnis gesetzt sein.
+**Hinweis:** Das Verzeichnis hailo-rpi5-examples muss vor der Ausführung als aktuelles Arbeitsverzeichnis gesetzt sein, um Zugriff auf die installierten Pakete zu gewährleisten:
 
 ```bash
 cd hailo-rpi5-examples
@@ -538,17 +540,25 @@ cd hailo-rpi5-examples
 ```bash
 source setup_env.sh
 ```
+Die venv kann durch den Befehl **deactivate** geschlossen werden:
 
-Das GitHub-Repository **Hailo-rpi5-examples** bietet verschiedene Beispiele zur Nutzung des Hailo AI Kits mit dem Raspberry Pi 5. Die Funktion der Objekterkennung wird hier jedoch nicht bereitgestellt. Weitere Informationen finden sich auf folgender [Seite](https://github.com/hailo-ai/hailo-rpi5-examples/tree/main).
+```bash
+deactivate
+```
+### GitHub-Repository und Beispiele
+
+Das GitHub-Repository **hailo-rpi5-examples** bietet verschiedene Beispiele zur Nutzung des Hailo AI Kits mit dem Raspberry Pi 5, einschließlich der aktuell genutzten Objekterkennungsfunktion. Darüber hinaus stehen weitere Beispiele zur Verfügung, die die vielseitigen Einsatzmöglichkeiten des Hailo AI Kits demonstrieren. Mehr Informationen und Anleitungen sind auf der [GitHub-Seite](https://github.com/hailo-ai/hailo-rpi5-examples/tree/main) zu finden.
 
 
-Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente im hailo_rpi5_examples  in den folgenden Verzechnissen angepasst werden: 
+### Vorbereitung der Dateien
 
-**Ressources Ordner:**
+Um die generierte HEF Datei nutzen zu können, müssen folgende Dokumente im hailo-rpi5-examples Ordner in den folgenden Verzechnissen hinterlegt werden: 
+
+#### Ressources Ordner:**
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/ressources.jpeg?raw=true" width="500">
 
-Im **resources**-Ordner werden die JSON-Datei und die HEF-Datei abgelegt. Die JSON-Datei definiert zentrale Parameter für die Modellausführung, zur Orientierung kann die im Ordener bereits hinterlegte **barcode-json** genutzt werden, basierend darauf habe ich für mein Modell folgende json zusammengestellt:
+Im Verzeichnis **resources** werden die JSON-Datei und die HEF-Datei abgelegt. Die JSON-Datei definiert zentrale Parameter für die Modellausführung. Als Orientierung dient die bereits im Ordner hinterlegte **barcode-json**-Datei. Basierend darauf wurde die folgende **Bauklotz-json** -Datei erstellt:
 
 ```json
 {
@@ -563,21 +573,25 @@ Im **resources**-Ordner werden die JSON-Datei und die HEF-Datei abgelegt. Die JS
     ]
 }
 ```
-- Der Parameter **iou_threshold (0.4)** legt fest, dass Bounding Boxen mit mehr als 40 % Überlappung zusammengeführt werden.
+##### Paramterübersicht:
 
-- **detection_threshold (0.5)** bedeutet, dass Objekte nur erkannt werden, wenn die Konfidenz mindestens 50 % beträgt.
+- **iou_threshold (0.4)**: Legt fest, dass Bounding Boxen mit mehr als 40 % Überlappung zusammengeführt werden.
 
-- Mit **max_boxes (3)** wird die maximale Anzahl der anzuzeigenden Objekte auf drei begrenzt. Die labels enthalten die Klassennamen „unlabeled“ und „Bauklotz“.
+- **detection_threshold: (0.5)** Objekte werden nur erkannt, wenn die Konfidenz mindestens 50 % beträgt.
 
-Basic-pipeline - Ordner:
+- **max_boxes (3)**: Begrenzung der maximalen Anzahl anzuzeigender Objekte auf drei. Die Labels definieren die Klassen „unlabeled“ und „Bauklotz“.
 
-
+#### Basic-pipeline - Ordner:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/pipeline.jpeg?raw=true" width="400">
 
-Im **basic_pipeline**-Ordner wird das Skript Bauklotz_detection.py hinterlegt, das für die Modellausführung angepasst wurde. Dieses Skript ruft die Modellausgabe ab, zeichnet Bounding Boxen um erkannte Objekte und zeigt relevante Informationen wie Klasse, Konfidenz und Verarbeitungsgeschwindigkeit an. Die Skripte detection_pipeline.py und detection.py sind standardmäßig im Repository enthalten, können jedoch an spezifische Anforderungen angepasst werden. Das Skript, das ich verwendet habe, lautet wie folgt:
+im Verzeichnis basic_pipeline werden Skripte für die Modellausführung abgelegt. Dazu zählen:
 
+- **detection_pipeline.py** und **detection.py**: Standardmäßig im Repository enthalten. Diese Skripte können an spezifische Anforderungen angepasst werden.
+  
+- **Bauklotz_detection.py:** Ein angepasstes Skript, das Bounding Boxen um erkannte Objekte zeichnet und relevante Informationen wie Klasse, Konfidenz und Verarbeitungsgeschwindigkeit anzeigt.
 
+Das verwendete angepasste Skript lautet:
 
 ```python
 import gi
@@ -676,19 +690,19 @@ if __name__ == "__main__":
 
 ### Ausführen der Ausgabe:
 
-Zum Starten der Modellausführung wird folgender Befehl verwendet.
+Zum Starten des Modells wird der folgende Befehl ausgeführt:
 
 ```bash
 python basic_pipelines/bauklotz-detection.py --labels-json resources/bauklotz-labels.json --hef resources/yolov8s-hailo8l-barcode.hef --input -rpi
 ```
 
-Mit --input rpi verweisen wir auf die angecshlossene Raspberry Pi Camera Module 3 Kamera, um zu erfahren, welche anderen Möglichkeiten und Ausgaben wir erhalten können, mit dem detection.py Skript kann folgender Befehl ausgefürt werden:
+Der Parameter **--input rpi** gibt an, dass die angeschlossene Raspberry Pi Camera Module 3 Kamera als Eingabequelle verwendet wird. Um weitere Optionen oder Ausgaben, die mit dem Skript detection.py verfügbar sind, zu erkunden, kann folgender Befehl ausgeführt werden:
 
 ```bash
 python basic_pipelines/detection.py --help
 ```
 
-Das folgende Bild zeigt die Ausgabe. Die Objekte wurden erfolgreich erkannt und mit Bounding Boxen, Klassennamen sowie Konfidenzwerten versehen.
+Die folgende Abbildung zeigt die Ausgabe des Modells. Die Objekte wurden erfolgreich erkannt und mit Bounding Boxen, Klassen und den jeweiligen Konfidenzwerten versehen:
 
 ![image](https://github.com/user-attachments/assets/6c91a661-7dde-479a-90b4-65f2520f9534)
 
