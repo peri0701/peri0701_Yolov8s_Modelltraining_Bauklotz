@@ -710,7 +710,11 @@ Die folgende Abbildung zeigt die Ausgabe des Modells. Die Objekte wurden erfolgr
 
 ## 🌟 Warum wurde eine GitHub Seite erstellt?
 
-Die GitHub-Seite wurde erstellt, um den Code, die Konfigurationen und die Dokumentationen des Projekts zentral zu verwalten und zugänglich zu machen. Während der Arbeit an diesem Projekt haben andere GitHub-Seiten wertvolle Unterstützung geboten, um komplexe Schritte besser zu verstehen und umzusetzen. Aus diesem Grund habe ich beschlossen, für die Bachelorarbeit ebenfalls eine GitHub-Seite zu erstellen, um die Projektschritte übersichtlich zu dokumentieren und mit Nachfolgenden zu teilen. Zudem ist diese Seite eine der ersten deutschen Ressourcen, die sich detailliert mit diesem Thema auseinandersetzt.
+Die GitHub-Seite wurde erstellt, um den Code, die Konfigurationen und die Dokumentationen des Projekts zentral zu verwalten und zugänglich zu machen. 
+
+Während der Arbeit an diesem Projekt haben andere GitHub-Seiten wertvolle Unterstützung geboten, um komplexe Schritte besser zu verstehen und umzusetzen. Aus diesem Grund habe ich beschlossen, für die Bachelorarbeit ebenfalls eine GitHub-Seite zu erstellen, um die Projektschritte übersichtlich zu dokumentieren und mit Nachfolgenden zu teilen. 
+
+Zudem ist diese Seite eine der ersten deutschen Ressourcen, die sich detailliert mit diesem Thema auseinandersetzt.
 
 ---
 
