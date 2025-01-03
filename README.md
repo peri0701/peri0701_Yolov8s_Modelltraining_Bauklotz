@@ -545,6 +545,7 @@ Das GitHub-Repository **Hailo-rpi5-examples** bietet verschiedene Beispiele zur 
 Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente im hailo_rpi5_examples  in den folgenden Verzechnissen angepasst werden: 
 
 **Ressources Ordner:**
+
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/ressources.jpeg?raw=true" width="500">
 
 Im **resources**-Ordner werden die JSON-Datei und die HEF-Datei abgelegt. Die JSON-Datei definiert zentrale Parameter für die Modellausführung, zur Orientierung kann die im Ordener bereits hinterlegte **barcode-json** genutzt werden, basierend darauf habe ich für mein Modell folgende json zusammengestellt:
