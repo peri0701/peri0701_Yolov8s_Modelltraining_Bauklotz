@@ -351,19 +351,65 @@ cd hailo_model_zoo; pip install -e .
 
 ## 5. Vorbereitung auf die HEF Konverterierung 
 
-Nun muss wie vorher die heruntergeladene Hailo Datafllow Compiler auch unsere zuvor enerierte best.onnx Datei in das Ubuntu Verzeichnis gezogen werden - Vom Raspberry Pi kann diese über Google Drive auf dem Rechner heruntergeladen werden.
+Nun muss wie vorher die heruntergeladene Hailo Datafllow Compiler auch unsere zuvor generierte best.onnx Datei in das Ubuntu Verzeichnis gezogen werden - Vom Raspberry Pi kann diese über Google Drive auf dem Rechner heruntergeladen werden.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/best.jpeg?raw=true"  width="400">
 
-Beim Herunterladen des Datensatzes wurdn die Bilder und Annotationen in drei Ordner Strukturen aufgeteilt, der train Ordner, muss ebenfalls in das Ubuntu Umfeld gepackt werden.
+Beim Herunterladen des Datensatzes wurdn die Bilder und Annotationen in drei Ordner Strukturen aufgeteilt, train, val und test. Der train Ordner, muss ebenfalls in das Ubuntu Umfeld gezogen werden.
 
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/trsin_folder.jpeg?raw=true" width="400">
 
-Viele machen den Fehler den Befehl zur Performance Steigerung jetzt schon auszugeben, da man davon ausgehen kann, dass man alle Komponenten besitzt:
+Viele machen den Fehler den Befehl zur Performance Steigerung jetzt schon auszugeben, da man davon ausgehen kann, dass man alle Komponenten besitzt. Im Hintergrund müssen aber folgende Skripte im Hailo Model Zoo angepasst werden. Sie befinden sich im folgendem Verzeichis:
 
 
-```powershell
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="400">
+
+Die yolov8s.yaml Datei kann im text.editor bearbeitet werden 
+
+```yaml
+base:
+- base/yolov8.yaml
+postprocessing:
+  device_pre_post_layers:
+    nms: true
+  hpp: true
+network:
+  network_name: yolov8s
+paths:
+  network_path:
+  - best.onnx #Hier muss der genaue Pfad zur ONNX Datei angegeben werden 
+  alls_script: hailo_model_zoo/hailo_model_zoo/cfg/alls/yolov8s.alls #Hier muss der genaue Pfad zur yolov8s.alls Datei angegeben werden 
+  url: https://hailo-model-zoo.s3.eu-west-2.amazonaws.com/ObjectDetection/Detection-COCO/yolo/yolov8s/2023-02-02/yolov8s.zip
+parser:
+  nodes:
+  - null
+  - - /model.22/cv2.0/cv2.0.2/Conv
+    - /model.22/cv3.0/cv3.0.2/Conv
+    - /model.22/cv2.1/cv2.1.2/Conv
+    - /model.22/cv3.1/cv3.1.2/Conv
+    - /model.22/cv2.2/cv2.2.2/Conv
+    - /model.22/cv3.2/cv3.2.2/Conv
+info:
+  task: object detection
+  input_shape: 640x640x3
+  output_shape: 1x5x100 #Erste Zahl steht für die Klasse (1=Bauklotz)
+  operations: 28.4G #Entspricht GFLOPs der "Model Summary(fused)"   Angabe meines Modeltrainings
+  parameters: 11.125M #Entspricht den parametern der "Model Summary(fused)" des Modelltrainings 
+  framework: pytorch
+  training_data: coco train2017
+  validation_data: coco val2017
+  eval_metric: mAP
+  full_precision_result: 44.75
+  source: https://github.com/ultralytics/ultralytics
+  license_url: https://github.com/ultralytics/ultralytics/blob/main/LICENSE
+  license_name: GPL-3.0
+
+
+
+
+
+```bash
 hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/images --classes 1 --performance
 ```
 Im Hintergrund müssen im hailo model zoo, folgende Skripte angepasst werden, die unter folgendem Verzeichnis zu finden sind im Ubuntu Verzeichnis:
