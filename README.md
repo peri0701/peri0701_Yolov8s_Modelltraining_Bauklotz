@@ -447,7 +447,11 @@ Die yolov8s_nms_config.json-Datei legt die Parameter für das NMS (Non-Maximum S
 
 ![image](https://github.com/user-attachments/assets/4172ebb3-c527-4208-8819-20472d413967)
 
-In der Konfigurationsdatei **yolov8s_nms_config.json** sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
+In der Konfigurationsdatei **yolov8s_nms_config.json** sind die folgenden Änderungen vorzunehmen:
+
+- **"image_dims": [640, 640]** // Bilddimensionen an die Trainingsparameter des Modells anpassen 
+- **"classes": 1** // Klassenanzahl entsprechend des eigenen Modells anpassen (hier: 1 für Bauklotz)
+
 
 ```json
 {
@@ -455,10 +459,10 @@ In der Konfigurationsdatei **yolov8s_nms_config.json** sind die folgenden Änder
 	"nms_iou_th": 0.7,
 	"image_dims": [
 		640,
-		640 // Bilddimensionen an die Trainingsparameter des Modells anpassen (z. B. 640x640).
+		640 
 	],
 	"max_proposals_per_class": 100,
-	"classes": 1, //Klassenanzahl entsprechend des eigenen Modells anpassen (hier: 1 für Bauklotz).
+	"classes": 1, 
 	"regression_length": 16,
 	"background_removal": false,
 	"background_removal_index": 0,
