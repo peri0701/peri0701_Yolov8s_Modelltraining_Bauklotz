@@ -226,7 +226,7 @@ Nach der erfolgreichen Ausführung wird die ONNX-Datei im Arbeitsverzeichnis der
 ---
 ## 5. **Konvertieren des ONNX-Modells in das HEF-Format**
 
-### 1.Einrichtung einer Linux-Umgebung mit WSL und Ubuntu 22.04
+### Einrichtung einer Linux-Umgebung mit WSL und Ubuntu 22.04
 
 Für die Ausführung eines trainierten Modells auf dem Raspberry Pi AI Kit mit der Hailo-Hardware ist eine Konvertierung des Modells in das **Hailo Execution Format** (HEF) erforderlich. Da die Hailo-Software ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von **Windows Subsystem for Linux** (WSL) eine einfache Lösung für Windows-Nutzer.
 
@@ -277,49 +277,56 @@ sudo apt upgrade
 
 ### 2. Hailo Data Compiler herunterladen 
 
-Der Hailo Dataflow Compiler wird benötigt, um ONNX-Modelle in das für die Hailo-Hardware optimierte HEF-Format zu konvertieren. Er passt Modelle an die Hardwarearchitektur an und ermöglicht durch Optimierungen wie Quantisierung eine maximale Leistung bei minimalem Ressourcenverbrauch.
+Der Hailo Dataflow Compiler wird benötigt, um ONNX-Modelle in das HEF-Format (Hailo Execution Format) zu konvertieren, das für die Hailo-Hardware optimiert ist. Er passt Modelle an die Hardwarearchitektur an und ermöglicht durch Optimierungen wie Quantisierung eine maximale Leistung bei minimalem Ressourcenverbrauch.
 
-NUn werden erforderliche Python Pakete heruntergeladen, die wir für den Hailo Data Compiler benötigen.
+#### Erforderliche Python-Pakete installieren
+Die folgenden Befehle installieren die notwendigen Python-Pakete, die für den Hailo Data Compiler benötigt werden:
 
-```powershell
+```bash
 sudo apt install python3-pip
 sudo apt install python3.10-venv
 sudo apt-get install python3.10-dev python3.10-distutils python3-tk libfuse2 graphviz libgraphviz-dev
 sudo pip install pygraphviz
 sudo apt install wslu
 ```
-Eine venv aufgestellt:
+#### Virtuelle Umgebung erstellen
+Erstellen und aktivieren einer virtuellen Umgebung mit dem Namen **hailodfc**:
 
-```powershell
+```bash
 python3 -m venv hailodfc
-. hailodfc/bin/activate
+source hailodfc/bin/activate
 ```
-
+#### Python-Version überprüfen
+Die Python-Version der Umgebung sollte 3.10.12 sein, um die Kompatibilität sicherzustellen:
 Um die Kompalität mit der python Umgebung u sehen - Sie sollte 3.10.12 sein.
-```powershell
+
+```bash
 python3 --version
 ```
-
-Um den Hailo Dataflower Compiler herunterzuladen muss erst eine Registrierung in die Hailo Developer Zone erfolgen, die [hierüber](https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2Fsoftware-downloads%2F) durchgeführt werden kann. Als nächstes muss die 3.28 Version mit der Python Version 3.10, die am 1.Juli 2024 erschienen ist heruntergeladen werden.
+#### Hailo Dataflow Compiler herunterladen
+Für den Download des **Hailo Dataflow Compilers** ist eine [Registrierung in der Hailo Developer Zone](https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2Fsoftware-downloads%2) erforderlich. Für die Konvertierung des Modells muss der Hailo Dataflow Compiler in der Version 3.28 heruntergeladen werden, da diese Version mit Python 3.10 kompatibel ist und die Anforderungen der Hailo-Hardware erfüllt.
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(13).gif?raw=true" alt="Demo" width="600">
 
-Nun muss die heruntergelade Datei in unser Ubuntu "home" Verzeichnis gebracht und abgelegt werden, damit sie in unserem Ubuntu Umfeld auch installiert werden kann, mit folgendem Befehl, öffnet sich das Zielverzeichnis, die Datei muss bon den Downloads in diesen Bereich verschoben werden:
+#### Datei in das Ubuntu-Verzeichnis verschieben
+Die heruntergeladene HDC Datei sollte in das **Home-Verzeichnis** des Ubuntu-Umfelds kopiert werden. Mit folgendem Befehl wird das Zielverzeichnis geöffnet, um die Datei aus dem **Downloads-Ordner** zu verschieben:
 
-```powershell
+```bash
 wslview .
 ```
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/dataflower.jpeg?raw=true"  width="400">
 
-Ist dies erledigt, kann mit dem Befehl, wird die Installation gestartet: 
-```powershell
+#### Installation starten
+Nach dem Verschieben der Datei kann die Installation des Compilers mit folgendem Befehl gestartet werden:
+
+```bash
 pip3 install hailo_dataflow_compiler-3.28.0-py3-none-linux_x86_64.whl
 ```
+#### Installation überprüfen
+Der Befehl **-h** zeigt nach erfolgreicher Installation eine Übersicht der verfügbaren Optionen und Befehle, die mit der Hailo-CLI ausgeführt werden können.
 
-Mt den Befehlen, kann verifiziert werden, ob der Download erfolgreich war, indem man "help" anzeigen lässt:
-
-```powershell
+```bash
 hailo -h
 ```
 ![image](https://github.com/user-attachments/assets/990df005-46d5-4626-979c-c5db122b57f1)
