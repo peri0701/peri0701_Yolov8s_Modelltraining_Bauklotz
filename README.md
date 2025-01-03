@@ -355,7 +355,7 @@ Um die HEF-Konvertierung vorzubereiten, müssen mehrere Dateien und Skripte ange
 
 ### 1. best.onnx Datei übertragen
 
-Die zuvor generierte **best.onnx**-Datei muss aus dem Raspberry Pi über Google Drive auf dem Rechner heruntergeladen und in das Ubuntu-Home-Verzeichnis verschoben werden. Dieser Schritt stellt sicher, dass alle benötigten Ressourcen an einem Ort für die Konvertierung bereitstehen:
+Die zuvor generierte **best.onnx**-Datei wird vom Raspberry Pi über Google Drive heruntergeladen und anschließend in das Home-Verzeichnis von Ubuntu verschoben.  Dieser Schritt stellt sicher, dass alle benötigten Ressourcen an einem Ort für die Konvertierung bereitstehen:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/best.jpeg?raw=true"  width="500">
 
@@ -368,10 +368,11 @@ Beim Herunterladen des Datensatzes wurden Bilder und Annotationen in drei Ordner
 Viele machen den Fehler, bereits jetzt den Befehl zur Performance-Optimierung auszuführen, ohne sicherzustellen, dass alle Konfigurationsdateien korrekt angepasst sind. Im Hintergrund müssen folgende Skripte bearbeitet werden:
 
 #### a.) yolov8s.yaml
-Diese Datei ist eine zentrale Konfigurationsdatei des Hailo Model Zoo und enthält alle Parameter für Parsing, Optimierung und Kompilierung des Modells. Sie befindet sich im Verzeichnis: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > networks.**
+Diese Datei ist eine zentrale Konfigurationsdatei des Hailo Model Zoo und definiert alle Parameter für das Parsing, die Optimierung und die Kompilierung des Modells. Sie befindet sich im Verzeichnis: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > networks.**
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/network.jpeg?raw=true" width="500">
 
+In der Konfigurationsdatei yolov8s.yaml sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
 
 ```yaml
 base:
@@ -416,10 +417,11 @@ info:
 
 #### b.) yolov8s_nms_config.json
 
-Diese Datei steuert die Einstellungen für das NMS (Non-Maximum Suppression)-Postprocessing. Sie wird vom Dataflow Compiler verwendet, um die Post-Processing-Schritte für das Netzwerk zu definieren. Standardwerte sind für viele Standard-Netzwerke geeignet, müssen jedoch angepasst werden, wenn sich Hyperparameter ändern. Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > postprocess_config**
+Die yolov8s_nms_config.json-Datei legt die Parameter für das NMS (Non-Maximum Suppression)-Postprocessing fest. Sie wird vom Dataflow Compiler genutzt, um die Nachbearbeitungsschritte für das Netzwerk zu konfigurieren. Während die voreingestellten Werte für viele Netzwerke geeignet sind, ist eine Anpassung notwendig, wenn sich Hyperparameter ändern. Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > postprocess_config**
 
 ![image](https://github.com/user-attachments/assets/4172ebb3-c527-4208-8819-20472d413967)
 
+In der Konfigurationsdatei **yolov8s_nms_config.json** sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
 
 ```json
 {
@@ -459,12 +461,12 @@ Diese Datei steuert die Einstellungen für das NMS (Non-Maximum Suppression)-Pos
 
 ### c.) yolov8s.alls
 
-Diese Datei enthält spezifische Anweisungen für die Optimierung und Konvertierung des Modells. Parameter wie Aktivierungsfunktionen (z. B. Sigmoid) werden hier definiert.
+definiert spezifische Parameter und Einstellungen für die Optimierung und Konvertierung des Modells, einschließlich der Aktivierungsfunktionen (z. B. Sigmoid).
 Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > alls > generic.**
 
 ![image](https://github.com/user-attachments/assets/2905ce2d-8423-4528-ace4-11579f15bf11)
 
-
+In der Konfigurationsdatei **yolov8s.alls** sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
 
 ```plaintext
 quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0])
@@ -476,16 +478,13 @@ performance_param(compiler_optimization_level=max)
 nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yolov8, engine=cpu)
 ```
 
-Dieser Befehl startet die Optimierung. **Hinweis:** Die Optimierung ist sehr zeitaufwendig, dass sie auf der CPU stattfindet, dieser Durchlauf hat 3 einhalb Stunden gedauert.
+Dieser Befehl startet die Optimierung. **Hinweis:** Die Optimierung ist zeitaufwändig und kann je nach Leistung des Systems bis zu vier Stunden dauern.
 
 ```bash
 hailomz compile yolov8s --ckpt=best.onnx --hw-arch hailo8l --calib-path train/images --classes 1 --performance
 ```
-Ist die Optimierung abgeschlossen, erhält man die Information, dass die Hef datei gespeichert wurde.
+Nach erfolgreicher Optimierung wird die HEF-Datei im angegebenen Verzeichnis gespeichert.
 ![image](https://github.com/user-attachments/assets/7183d63d-2382-4a96-a527-8c46464e1d64)
-
-**Besonderheit:**
-Die Konvolutionsschichten (conv42, conv52, conv63) sind Bezeichnungen innerhalb des Hailo-internen Graphen, die nach dem Parsing des ONNX-Modells erstellt werden. Um diese Schichten zu analysieren, können Tools wie hailo visualizer yolov8s.har oder Netron verwendet werden.
 
 ---
 ## 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
