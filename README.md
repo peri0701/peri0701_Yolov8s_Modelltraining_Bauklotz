@@ -501,7 +501,7 @@ Nach erfolgreicher Optimierung wird die HEF-Datei im angegebenen Verzeichnis ges
 ---
 ## 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
 
-Dafür muss das entsprechende Umfeld erst geschaffen werden, dafür wird das Hailo rpi5 Examples repository auf dem Raspberry Pi heruntergeladen.
+Zum Ausführen des Modells muss zunächst die geeignete Umgebung eingerichtet werden. Hierfür wird das Hailo-rpi5-Examples-Repository auf den Raspberry Pi heruntergeladen.
 
 ```bash
 git clone https://github.com/hailo-ai/hailo-rpi5-examples.git
@@ -512,7 +512,7 @@ cd hailo-rpi5-examples
 ```bash
 ./install.sh
 ```
-Falls der ./install.sh nicht auf anhieb funktionieren sollte, so gibt es eine Zweite Möglichkeit die benötigten Packete herunterzuladen, eine venv wird manuell durch folgenden Link erstellt, hier: 
+Sollte das Skript **./install.sh** nicht wie vorgesehen funktionieren, gibt es eine alternative Möglichkeit, die benötigten Pakete herunterzuladen. Hierbei wird die virtuelle Umgebung (venv) manuell eingerichtet:
 
 ```bash
 source setup_env.sh
@@ -527,10 +527,9 @@ pip install -r requirements.txt
 ./compile_postprocess.sh
 ```
 
-Wenn die venv geschlossen wird und man eine neue Terminal session benutzen möchte mit den Paketen, so sollte immer source setup_env.sh verwendet werden. 
+Nach dem Schließen der virtuellen Umgebung muss für eine neue Terminalsitzung mit den installierten Paketen stets das Skript **source setup_env.sh** ausgeführt werden.
 
-**Hinweis:** Man muss isch im hailo-rpi5-examples Verzeichnis befinden!
-Wie folgt ist nach einer neuen Terminal Session vorzugehen:
+**Hinweis:** Das Verzeichnis **hailo-rpi5-examples** muss vor der Ausführung als aktuelles Arbeitsverzeichnis gesetzt sein.
 
 ```bash
 cd hailo-rpi5-examples
@@ -540,47 +539,35 @@ cd hailo-rpi5-examples
 source setup_env.sh
 ```
 
-Es gibt im Hailo-rpi5-examples GitHub verschiede Beispiele, wie der Hailo AI Kit mit dem Raspberry Pi5 genutzt werden kann, außer der Object detection Funktion, [hier](https://github.com/hailo-ai/hailo-rpi5-examples/tree/main) ein Link zur Seite.
+Das GitHub-Repository **Hailo-rpi5-examples** bietet verschiedene Beispiele zur Nutzung des Hailo AI Kits mit dem Raspberry Pi 5. Die Funktion der Objekterkennung wird hier jedoch nicht bereitgestellt. Weitere Informationen finden sich auf folgender [Seite](https://github.com/hailo-ai/hailo-rpi5-examples/tree/main).
 
 
 Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente in den folgenden Verzechnissen hinterlegt werden: 
-
 
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/pipeline.jpeg?raw=true" width="400">
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/ressources.jpeg?raw=true" width="400">
 
-Folgender Befehl wird dann zum Ausführen ausgeführt, input hier ist unsere Raspberry PI 3 Camera Module Kamera:
+Zum Starten der Modellausführung wird folgender Befehl verwendet. Als Eingabe dient hier die Raspberry Pi Camera Module 3 Kamera:
 
 ```bash
 python basic_pipelines/bauklotz-detection.py --labels-json resources/bauklotz-labels.json --hef resources/yolov8s-hailo8l-barcode.hef --input -rpi
 ```
 
-Hier die Ausgabe:
+Das folgende Bild zeigt die Ausgabe. Die Objekte wurden erfolgreich erkannt und mit Bounding Boxen, Klassennamen sowie Konfidenzwerten versehen.
 
-![image](https://github.com/user-attachments/assets/916cb36c-8beb-4041-ba46-8535442ebe21)
-
-
----
-
-## 📖 Zusätzliche Dokumentation
-
-Detaillierte Anleitungen und Hintergründe zu den einzelnen Schritten:
-- [Einleitung und Motivation](https://your-github-pages-link.com/introduction)
-- [Theoretische Grundlagen](https://your-github-pages-link.com/fundamentals)
-- [Tutorials für jede Phase](https://your-github-pages-link.com/tutorials)
-- [Herausforderungen und Lösungsansätze](https://your-github-pages-link.com/challenges)
+![image](https://github.com/user-attachments/assets/6c91a661-7dde-479a-90b4-65f2520f9534)
 
 ---
 
 ## 🌟 Warum wurde eine GitHub Seite erstellt?
 
-Dieses Projekt zeigt, wie leistungsstarke, kosteneffiziente Hardware wie der Raspberry Pi in Kombination mit modernen KI-Modellen genutzt werden kann, um industrielle Anwendungen zu verbessern. Es soll anderen Entwicklern und Forschern als Inspiration und Anleitung dienen.
+Die GitHub-Seite wurde erstellt, um den Code, die Konfigurationen und die Dokumentationen des Projekts zentral zu verwalten und zugänglich zu machen. Während der Arbeit an diesem Projekt haben andere GitHub-Seiten wertvolle Unterstützung geboten, um komplexe Schritte besser zu verstehen und umzusetzen. Aus diesem Grund habe ich beschlossen, für die Bachelorarbeit ebenfalls eine GitHub-Seite zu erstellen, um die Projektschritte übersichtlich zu dokumentieren und mit Nachfolgenden zu teilen. Zudem ist diese Seite eine der ersten deutschen Ressourcen, die sich detailliert mit diesem Thema auseinandersetzt.
 
 ---
 
-## 📎 Weitere Links und Ressourcen
+## 📖 Weitere Links, Quellen und Ressourcen, die genutzt wurden
 
 - [YOLO Dokumentation](https://github.com/ultralytics/yolov5)
 - [Roboflow Plattform](https://roboflow.com/)
