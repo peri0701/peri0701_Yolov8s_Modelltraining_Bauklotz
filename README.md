@@ -334,16 +334,19 @@ hailo -h
 
 ### 3. Hailo Model Zoo herunterladen
 
-In einem nächsten Schritt wird Hailo Modek Zoo heruntergeladen, dazu nutzen wir Hailo AIs Github repository:
+Der **Hailo Model Zoo** spielt eine zentrale Rolle im Workflow für die Konvertierung von Modellen in das Hailo Execution Format (HEF). Er enthält eine Sammlung vorgefertigter Modelle und Skripte, die speziell für die Hailo-Hardware optimiert sind. Diese Ressourcen ermöglichen es, Modelle effizient anzupassen, zu konvertieren und für die Ausführung auf der Hailo-Hardware vorzubereiten.
 
-```powershell
+Um den Hailo Model Zoo herunterzuladen, wird das offizielle **GitHub-Repository** von Hailo verwendet:
+
+```bash
 git clone https://github.com/hailo-ai/hailo_model_zoo.git
 ```
 
-Wechseln das Verzeichnis und installieren alle darin enthaltenen Pakete die zum Setup dazu gehören:
+Nach dem Herunterladen muss in das entsprechende Verzeichnis gewechselt werden, um die darin enthaltenen Pakete zu installieren, die für das Setup und die Konvertierung erforderlich sind:
 
-```powershell
+```bash
 cd hailo_model_zoo; pip install -e .
+
 ```
 
 ## 5. Vorbereitung auf die HEF Konverterierung 
