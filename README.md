@@ -542,17 +542,149 @@ source setup_env.sh
 Das GitHub-Repository **Hailo-rpi5-examples** bietet verschiedene Beispiele zur Nutzung des Hailo AI Kits mit dem Raspberry Pi 5. Die Funktion der Objekterkennung wird hier jedoch nicht bereitgestellt. Weitere Informationen finden sich auf folgender [Seite](https://github.com/hailo-ai/hailo-rpi5-examples/tree/main).
 
 
-Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente in den folgenden Verzechnissen hinterlegt werden: 
+Um unsere HEF Datei nutzen zu können, müssen folgende Dokumente im hailo_rpi5_examples  in den folgenden Verzechnissen angepasst werden: 
+
+**Ressources Ordner:**
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/ressources.jpeg?raw=true" width="500">
+
+Im **resources**-Ordner werden die JSON-Datei und die HEF-Datei abgelegt. Die JSON-Datei definiert zentrale Parameter für die Modellausführung, zur Orientierung kann die im Ordener bereits hinterlegte **barcode-json** genutzt werden, basierend darauf habe ich für mein Modell folgende json zusammengestellt:
+
+```json
+{
+    "iou_threshold": 0.4,
+    "detection_threshold": 0.5,
+    "output_activation": 0.5,
+    "label_offset": 0.5,
+    "max_boxes":3,
+    "labels": [
+      "unlabeled",
+      "Bauklotz"
+    ]
+}
+```
+- Der Parameter **iou_threshold (0.4)** legt fest, dass Bounding Boxen mit mehr als 40 % Überlappung zusammengeführt werden.
+
+- **detection_threshold (0.5)** bedeutet, dass Objekte nur erkannt werden, wenn die Konfidenz mindestens 50 % beträgt.
+
+- Mit **max_boxes (3)** wird die maximale Anzahl der anzuzeigenden Objekte auf drei begrenzt. Die labels enthalten die Klassennamen „unlabeled“ und „Bauklotz“.
+
+Basic-pipeline - Ordner:
+
 
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/pipeline.jpeg?raw=true" width="400">
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/ressources.jpeg?raw=true" width="400">
+Im **basic_pipeline**-Ordner wird das Skript Bauklotz_detection.py hinterlegt, das für die Modellausführung angepasst wurde. Dieses Skript ruft die Modellausgabe ab, zeichnet Bounding Boxen um erkannte Objekte und zeigt relevante Informationen wie Klasse, Konfidenz und Verarbeitungsgeschwindigkeit an. Die Skripte detection_pipeline.py und detection.py sind standardmäßig im Repository enthalten, können jedoch an spezifische Anforderungen angepasst werden. Das Skript, das ich verwendet habe, lautet wie folgt:
 
-Zum Starten der Modellausführung wird folgender Befehl verwendet. Als Eingabe dient hier die Raspberry Pi Camera Module 3 Kamera:
+
+
+```python
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst, GLib
+import os
+import numpy as np
+import cv2
+import hailo
+from hailo_rpi_common import (
+    get_caps_from_pad,
+    get_numpy_from_buffer,
+    app_callback_class,
+)
+from detection_pipeline import GStreamerDetectionApp
+import time
+
+# User-defined class for the callback function
+class user_app_callback_class(app_callback_class):
+    def __init__(self):
+        super().__init__()
+        self.new_variable = 42
+
+    def new_function(self):
+        return "The meaning of life is: "
+
+# Callback function for the pipeline
+def app_callback(pad, info, user_data):
+    buffer = info.get_buffer()
+    if buffer is None:
+        return Gst.PadProbeReturn.OK
+
+    user_data.increment()
+    string_to_print = f"Frame count: {user_data.get_count()}\n"
+
+    # Get camera resolution
+    format, width, height = get_caps_from_pad(pad)
+    print(f"Camera Resolution: {width}x{height}")
+
+    frame = None
+    if user_data.use_frame and format is not None:
+        frame = get_numpy_from_buffer(buffer, format, width, height)
+        frame = cv2.resize(frame, (640, 640))  # Resize for display
+
+    roi = hailo.get_roi_from_buffer(buffer)
+    detections = roi.get_objects_typed(hailo.HAILO_DETECTION)
+
+    detection_count = 0
+
+    # Start timing
+    start_time = time.time()
+
+    for detection in detections:
+        label = detection.get_label()
+        bbox = detection.get_bbox()
+        confidence = detection.get_confidence()
+
+        # Convert normalized to absolute coordinates
+        xmin = int(bbox.xmin() * width)
+        ymin = int(bbox.ymin() * height)
+        xmax = int(bbox.xmax() * width)
+        ymax = int(bbox.ymax() * height)
+
+        # Update the shell output to match (xmin, ymin, xmax, ymax)
+        string_to_print += f"Detection: {label}, Confidence: {confidence:.2f}, BBox: ({xmin}, {ymin}, {xmax}, {ymax})\n"
+
+        # Draw bounding box and class+confidence as percentage on the frame
+        if user_data.use_frame and frame is not None:
+            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 0), 2)
+            # Display label, confidence, and bounding box format
+            cv2.putText(frame, f"{label} {int(confidence * 100)}%", (xmin, ymin - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+        detection_count += 1
+
+    # Measure timing for detection pipeline
+    elapsed_time = (time.time() - start_time) * 1000  # Convert to milliseconds
+
+    string_to_print += f"Speed: {elapsed_time:.2f}ms per frame\n"
+    print(string_to_print)
+
+    if user_data.use_frame and frame is not None:
+        # Display the number of detections
+        cv2.putText(frame, f"Detections: {detection_count}", (10, 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        user_data.set_frame(frame)
+
+    return Gst.PadProbeReturn.OK
+
+if __name__ == "__main__":
+    user_data = user_app_callback_class()
+    app = GStreamerDetectionApp(app_callback, user_data)
+    app.run()
+```
+
+
+### Ausführen der Ausgabe:
+
+Zum Starten der Modellausführung wird folgender Befehl verwendet.
 
 ```bash
 python basic_pipelines/bauklotz-detection.py --labels-json resources/bauklotz-labels.json --hef resources/yolov8s-hailo8l-barcode.hef --input -rpi
+```
+
+Mit --input rpi verweisen wir auf die angecshlossene Raspberry Pi Camera Module 3 Kamera, um zu erfahren, welche anderen Möglichkeiten und Ausgaben wir erhalten können, mit dem detection.py Skript kann folgender Befehl ausgefürt werden:
+
+```bash
+python basic_pipelines/detection.py --help
 ```
 
 Das folgende Bild zeigt die Ausgabe. Die Objekte wurden erfolgreich erkannt und mit Bounding Boxen, Klassennamen sowie Konfidenzwerten versehen.
