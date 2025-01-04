@@ -554,7 +554,7 @@ Das GitHub-Repository **hailo-rpi5-examples** bietet verschiedene Beispiele zur 
 
 Um die generierte HEF Datei nutzen zu können, müssen folgende Dokumente im hailo-rpi5-examples Ordner in den folgenden Verzechnissen hinterlegt werden: 
 
-#### Ressources Ordner:**
+#### Ressources Ordner:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/ressources.jpeg?raw=true" width="500">
 
