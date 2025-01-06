@@ -315,7 +315,7 @@ Die heruntergeladene HDC Datei sollte in das **Home-Verzeichnis** des Ubuntu-Umf
 wslview .
 ```
 
-<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/dataflower.jpeg?raw=true"  width="400">
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/dataflower.jpeg?raw=true"  width="500">
 
 #### Installation starten
 Nach dem Verschieben der Datei kann die Installation des Compilers mit folgendem Befehl gestartet werden:
@@ -501,9 +501,32 @@ Nach erfolgreicher Optimierung wird die HEF-Datei im angegebenen Verzeichnis ges
 ---
 ## 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
 
+### PCIe auf Gen3 einstellen und AI-Kit-Platine montieren
+
+PCIe (Peripheral Component Interconnect Express) ist ein Hochgeschwindigkeits-Standardschnittstellenprotokoll, das eine schnelle Datenübertragung zwischen der Hauptplatine und angeschlossenen Geräten wie dem Hailo AI-Kit ermöglicht. Um die optimale Leistung zu erzielen, ist es wichtig, PCIe auf Gen3 (Generation 3) zu konfigurieren.
+
+#### Schritt 1: Raspberry AI Kit montieren
+Befestige das Raspberry AI Kit sicher auf deinem Raspberry Pi, indem du die GPIO-Pins korrekt ausrichtest. Stelle sicher, dass die Platine fest sitzt, um eine stabile Verbindung zu gewährleisten, hier ein Tutorial dazu:
+
+<img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Raspberry_Ai_Kit.gif?raw=true" alt="Demo" width="600">
+
+#### Schritt 2: PCIe auf Gen3 konfigurieren
+PCIe (Peripheral Component Interconnect Express) ist ein Hochgeschwindigkeits-Standardschnittstellenprotokoll, das häufig in Computern verwendet wird, um Komponenten wie Grafikkarten, SSDs oder spezielle Beschleuniger wie das Hailo-Gerät anzuschließen. Es ermöglicht eine schnelle Datenübertragung zwischen diesen Geräten und der Hauptplatine. Um die optimale Leistung des Hailo-Geräts zu erzielen, muss PCIe auf Gen3 (Generation 3) gesetzt werden. Die Nutzung von Gen2 (Generation 2) ist zwar möglich, führt jedoch zu einer geringeren Leistung aufgrund der niedrigeren Übertragungsgeschwindigkeit.
+
+Öffne dafür das Konfigurationstool des Raspberry Pi:
+```bash
+sudo raspi-config
+```
+Wähle die Option "6 Advanced Options" und danach "A8 PCIe Speed". Bestätige mit "Yes", um den PCIe-Gen3-Modus zu aktivieren. Wähle anschließend "Finish", um das Tool zu verlassen.
+Starte den Raspberry Pi neu:
+
+```bash
+sudo reboot
+```
+
 ### Einrichtung der Umgebung
 
-Für die Ausführung des Modells muss eine geeignete Arbeitsumgebung eingerichtet werden. Dazu wird das **ailo-rpi5-Examples**-Repository auf den Raspberry Pi heruntergeladen:
+Für die Ausführung des Modells muss eine geeignete Arbeitsumgebung eingerichtet werden. Dazu wird das **hailo-rpi5-Examples**-Repository auf den Raspberry Pi heruntergeladen:
 
 ```bash
 git clone https://github.com/hailo-ai/hailo-rpi5-examples.git
@@ -718,9 +741,7 @@ Zudem ist diese Seite eine der ersten deutschen Ressourcen, die sich detailliert
 
 ---
 
-## 📖 Weitere Links, Quellen und Ressourcen, die genutzt wurden
-
-- [YOLO Dokumentation](https://github.com/ultralytics/yolov5)
+## 📖 Quellen, die für diese Seite genutzt wurden, befinden sich im Ordner Quellen im Repository
 - [Roboflow Plattform](https://roboflow.com/)
 - [Hailo Developer Resources](https://developer.hailo.ai/)
 
