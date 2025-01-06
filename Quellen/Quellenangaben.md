@@ -21,6 +21,7 @@
 - [https://github.com/hailo-ai/hailo-rpi5-examples](https://github.com/hailo-ai/hailo-rpi5-examples)
 - [https://youtu.be/nXqADZ2X4nI?feature=shared](https://youtu.be/nXqADZ2X4nI?feature=shared)
 - [https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2F](https://hailo.ai/authorization/?redirect_to=https%3A%2F%2Fhailo.ai%2Fdeveloper-zone%2F)
+- [https://help.ubuntu.com/community/SwapFaq](https://help.ubuntu.com/community/SwapFaq)
 
 ### 6. Ausführen des konvertierten Modells auf dem Raspberry Pi 5 & AI Kit
 - [https://github.com/hailo-ai/hailo-rpi5-examples/blob/main/doc/basic-pipelines.md#using-retrained-models](https://github.com/hailo-ai/hailo-rpi5-examples/blob/main/doc/basic-pipelines.md#using-retrained-models)
