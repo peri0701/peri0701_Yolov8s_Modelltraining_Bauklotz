@@ -309,16 +309,46 @@ Für den Download des **Hailo Dataflow Compilers** ist eine [Registrierung in de
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(13).gif?raw=true" alt="Demo" width="600">
 
 #### Datei in das Ubuntu-Verzeichnis verschieben
-Die heruntergeladene HDC Datei sollte in das **Home-Verzeichnis** des Ubuntu-Umfelds kopiert werden. Mit folgendem Befehl wird das Zielverzeichnis geöffnet, um die Datei aus dem **Downloads-Ordner** zu verschieben:
+Die heruntergeladene Hailo-DFC Datei sollte in das **Home-Verzeichnis** des Ubuntu-Umfelds kopiert werden. Mit folgendem Befehl wird das Zielverzeichnis geöffnet, um die Datei aus dem **Downloads-Ordner** zu verschieben:
 
 ```bash
 wslview .
 ```
-
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/dataflower.jpeg?raw=true"  width="500">
 
+#### Erweiterung des Arbeitsspeichers mit Swap
+Beim Installationsversuch erscheint folgende Fehlermeldung, wenn die erforderliche Kapazität nicht erfüllt wird:
+
+![image](https://github.com/user-attachments/assets/560d98a5-de02-4fea-bdc6-96da151bcfd3)
+
+In unserer WSL-Umgebung verwenden wir Ubuntu, da der Dataflow-Compiler mit den Versionen 20.04 und 22.04 kompatibel ist, besteht hier keine Komplikation.
+
+Der Hailo Dataflow-Compiler benötigt mindestens 16 GB RAM, unsere Ubuntu-Umgebung stellt jedoch nur 8 GB zur Verfügung. Um die Systemanforderungen zu erfüllen, wurde eine 8 GB Swap-Datei erstellt. Swap ist ein Bereich auf der Festplatte oder SSD, der als virtueller Arbeitsspeicher verwendet wird, wenn der physische RAM ausgelastet ist. Zwar ist Swap langsamer als RAM, ermöglicht aber die Kompilierung und Optimierung von Modellen, ohne die Hardware aufzurüsten.
+
+![image](https://github.com/user-attachments/assets/9c2a742d-a15e-4a4c-84f1-55024377d212)
+
+Eine neue Swap-Datei mit 9 GB wird eingerichtet, um die Systemanforderungen des Hailo Dataflow-Compilers zu erfüllen. Nach Erstellung der Datei sollte keine Fehlermeldung mehr auftreten:
+
+```bash
+sudo fallocate -l 9G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
+Mit dem folgenden Befehl kann überprüft werden, ob der Swap-Speicher korrekt eingerichtet wurde:
+
+```bash
+free -h
+cat /proc/swaps
+```
+Das Ergebnis sollte wie folgt aussehen:
+![image](https://github.com/user-attachments/assets/ee224632-7bc5-4df2-b457-5e0a1115eb1b)
+
+
 #### Installation starten
-Nach dem Verschieben der Datei kann die Installation des Compilers mit folgendem Befehl gestartet werden:
+Nun kann die installation des Hailo-DFC gestartet werden:
 
 ```bash
 pip3 install hailo_dataflow_compiler-3.28.0-py3-none-linux_x86_64.whl
