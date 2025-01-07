@@ -224,7 +224,7 @@ Nach der erfolgreichen Ausführung wird die ONNX-Datei im Arbeitsverzeichnis der
 ---
 ## 5. **Konvertieren des ONNX-Modells in das HEF-Format**
 
-### Einrichtung einer Linux-Umgebung mit WSL und Ubuntu 22.04
+### 1. Einrichtung einer Linux-Umgebung mit WSL und Ubuntu 22.04
 
 Für die Ausführung eines trainierten Modells auf dem Raspberry Pi AI Kit mit der Hailo-Hardware ist eine Konvertierung des Modells in das **Hailo Execution Format** (HEF) erforderlich. Da die Hailo-Software ausschließlich auf x86-Linux-Systemen unterstützt wird, bietet die Nutzung von **Windows Subsystem for Linux** (WSL) eine einfache Lösung für Windows-Nutzer.
 
@@ -379,7 +379,7 @@ cd hailo_model_zoo; pip install -e .
 
 ```
 
-## 5. Vorbereitung auf die HEF Konverterierung 
+## 6. Vorbereitung auf die HEF Konverterierung 
 
 Um die HEF-Konvertierung vorzubereiten, müssen mehrere Dateien und Skripte angepasst und in das richtige Verzeichnis verschoben werden. Hier eine Übersicht der erforderlichen Schritte:
 
@@ -452,7 +452,7 @@ Die **Parameteranzahl** und die **GFLOPS** (Giga Floating Point Operations per S
 
 
 
-### b.) yolov8s.alls
+#### b.) yolov8s.alls
 
 definiert spezifische Parameter und Einstellungen für die Optimierung und Konvertierung des Modells, einschließlich der Aktivierungsfunktionen (z. B. Sigmoid).
 Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > alls > generic.**
@@ -529,7 +529,7 @@ Nach erfolgreicher Optimierung wird die HEF-Datei im angegebenen Verzeichnis ges
 ![image](https://github.com/user-attachments/assets/7183d63d-2382-4a96-a527-8c46464e1d64)
 
 ---
-## 6. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
+## 7. **Modellausführung auf dem Raspberry PI 5 & Ai KIT**
 
 ### PCIe auf Gen3 einstellen und AI-Kit-Platine montieren
 
@@ -770,7 +770,5 @@ Zudem ist diese Seite eine der ersten deutschen Ressourcen, die sich detailliert
 ---
 
 ## 📖 Quellen, die für diese Seite genutzt wurden, befinden sich im Ordner Quellen im Repository
-- [Roboflow Plattform](https://roboflow.com/)
-- [Hailo Developer Resources](https://developer.hailo.ai/)
 
 
