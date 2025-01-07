@@ -42,7 +42,7 @@ Zum Erstellen eines neuen Projekts ist die [Registrierung bei Roboflow](https://
 
 ### Schritt 2: Bilder hochladen:
 Bilder können in das neu erstellte Projekt hochgeladen werden.
-**Hinweis**: Falls ein Datensatz bereits annotierte Dateien enthält, können diese in Roboflow hochgeladen werden, wo sie automatisch erkannt und den entsprechenden Bildern zugeordnet werden:
+**Hinweis**: Wenn ein Datensatz bereits annotierte Dateien enthält, können diese in Roboflow hochgeladen werden. Roboflow erkennt die Annotationen automatisch und ordnet sie den entsprechenden Bildern zu:
 
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(6).gif?raw=true" alt="Demo" width="600">
 
@@ -67,7 +67,7 @@ Nach Abschluss der Annotationen kann eine neue Version des Datensatzes generiert
 <img src="https://github.com/peri0701/Bauklotz-Objekterkennungsmodell/blob/main/Bilder%20&%20Videos%20f%C3%BCr%20die%20GitHub%20Seite/Video3%20(5).gif?raw=true" alt="Demo" width="600">
 
 ### Schritt 5: Datensatz exportieren
-Der Datensatz steht nach der Generierung in verschiedenen Formaten, darunter im YOLOv8-Format, zum Export bereit. Der Datensatz sollte lokal auf dem Rechner gespeichert werden, da er für die spätere Konvertierung benötigt wird, der Export kann auch über die API direkt in eine Trainingsumgebung wie Google Colab integriert werden
+Der Datensatz steht nach der Generierung in verschiedenen Formaten, darunter im YOLOv8-Format, zum Export bereit. Der Datensatz sollte lokal auf dem Rechner gespeichert werden, da er für die spätere Konvertierung benötigt wird, der Export kann auch über die API direkt in eine Trainingsumgebung wie Google Colab integriert werden.
 
 Im Beispiel wird gezeigt, wie mein finaler Datensatz, der für diese Arbeit erstellt wurde, in [Roboflow Universe](https://universe.roboflow.com/) gefunden und heruntergeladen werden kann.
 Der Datensatz ist ebenfalls über folgenden [Direktlink](https://www.google.com/url?q=https%3A%2F%2Funiverse.roboflow.com%2Fbauklotz%2Fbauklotz-c8zsq%2Fdataset%2F1) einsehbar:
@@ -101,7 +101,7 @@ source env/bin/activate
 ```
 
 #### Systemaktualisierung und Paketinstallation
-Das System wird aktualisiert, um sicherzustellen, dass die neuesten Paketlisten verfügbar sind und zukünftige Installationen reibungslos verlaufen. Zusätzlich wird der Python-Paketmanager installiert und auf die neueste Version aktualisiert, um die Kompatibilität mit modernen Bibliotheken zu gewährleisten:
+Das System wird aktualisiert, um die neuesten Paketlisten bereitzustellen und zukünftige Installationen reibungslos zu ermöglichen. Außerdem wird der Python-Paketmanager installiert und auf die neueste Version gebracht, um die Kompatibilität mit aktuellen Bibliotheken sicherzustellen.
 
 ```bash
 sudo apt update
@@ -125,7 +125,7 @@ sudo reboot
 ### Nutzung von Thonny
 Thonny ist eine benutzerfreundliche Entwicklungsumgebung für Python, die sich ideal für Projekte wie die Objekterkennung mit YOLO auf dem Raspberry Pi eignet. Sie ermöglicht das Arbeiten in virtuellen Umgebungen (venv), wodurch Skripte sicher getestet und ausgeführt werden können, ohne das Hauptsystem des Raspberry Pi zu beeinträchtigen. Dies erleichtert die Entwicklung direkt auf der Plattform. 
 
-Innerhalb von Thonny kann die entsprechende virtuelle Umgebung auswählt erden.
+Innerhalb von Thonny kann die entsprechende virtuelle Umgebung ausgewählt werden.
 Dadurch bleiben alle Skripte und Pakete des Projekts in der isolierten Umgebung und beeinflussen nicht das globale System.
 
 Im folgenden Video wird gezeigt, wie die Verknüpfung von Thonny mit der venv eingerichtet wird:
