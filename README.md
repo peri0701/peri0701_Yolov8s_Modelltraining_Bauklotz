@@ -321,7 +321,7 @@ wslview .
 #### Erweiterung des Arbeitsspeichers mit Swap
 Beim Installationsversuch erscheint folgende Fehlermeldung, wenn die erforderliche Kapazität nicht erfüllt wird:
 
-![image](https://github.com/user-attachments/assets/560d98a5-de02-4fea-bdc6-96da151bcfd3)
+<img src="https://github.com/user-attachments/assets/560d98a5-de02-4fea-bdc6-96da151bcfd3" width="500">
 
 In unserer WSL-Umgebung verwenden wir Ubuntu, da der Dataflow-Compiler mit den Versionen 20.04 und 22.04 kompatibel ist, besteht hier keine Komplikation.
 
