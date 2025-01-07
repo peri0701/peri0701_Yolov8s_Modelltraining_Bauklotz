@@ -769,6 +769,6 @@ Zudem ist diese Seite eine der ersten deutschen Ressourcen, die sich detailliert
 
 ---
 
-## 📖 Quellen, die für diese Seite genutzt wurden, befinden sich im Ordner Quellen im Repository
+## 📖 Quellen, die für diese Seite genutzt wurden, befinden sich im Repository unter 'Quellen'
 
 
