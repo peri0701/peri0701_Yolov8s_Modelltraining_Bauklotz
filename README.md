@@ -464,13 +464,13 @@ Speicherort: **Ubuntu-22.04 > home > irep > hailo_model_zoo > cfg > alls > gener
 In der Konfigurationsdatei **yolov8s.alls** sind die folgenden Änderungen vorzunehmen. Kommentare im Code weisen auf die anzupassenden Parameter hin, um die Konfiguration auf die Projektanforderungen abzustimmen:
 
 ```plaintext
-quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0]) #Diese Zeile ergänzen, um die Quantisierung auf die angegebenen Layer anzuwenden.
+quantization_param([conv42, conv53, conv63], force_range_out=[0.0, 1.0]) 
 normalization1 = normalization([0.0, 0.0, 0.0], [255.0, 255.0, 255.0])
 change_output_activation(conv42, sigmoid)
 change_output_activation(conv53, sigmoid)
 change_output_activation(conv63, sigmoid)
 performance_param(compiler_optimization_level=max) #Zeile ergänzen
-nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yolov8, engine=cpu) # Pfad zur yolov8s_nms_config.json überprüfen, um das Post-Processing korrekt zu konfigurieren.“
+nms_postprocess("../../postprocess_config/yolov8s_nms_config.json", meta_arch=yolov8, engine=cpu)
 ```
 
 #### c.) yolov8s_nms_config.json
@@ -670,8 +670,6 @@ class user_app_callback_class(app_callback_class):
         super().__init__()
         self.new_variable = 42
 
-    def new_function(self):
-        return "The meaning of life is: "
 
 # Callback function for the pipeline
 def app_callback(pad, info, user_data):
