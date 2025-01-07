@@ -147,15 +147,15 @@ from ultralytics import YOLO
 # Kamera mit Picamera2 einrichten
 picam2 = Picamera2()
 
-# Bildgröße und Format angeben (Größe kann hier angepasst werden, z. B. (800, 800))
-picam2.preview_configuration.main.size = (800, 800)
+# Bildgröße und Format angeben (Größe kann hier angepasst werden, z. B. (640, 640))
+picam2.preview_configuration.main.size = (640, 640)
 picam2.preview_configuration.main.format = "RGB888"
 picam2.preview_configuration.align()
 picam2.configure("preview")
 picam2.start()
 
 # YOLOv8s-Modell laden
-model = YOLO("best.pt")  # Enable YOLO's default logging
+model = YOLO("best.pt") 
 
 # Klassennamen definieren
 class_names = {0: "Bauklotz"}  # Verknüpft Klassenindizes mit Klassennamen
