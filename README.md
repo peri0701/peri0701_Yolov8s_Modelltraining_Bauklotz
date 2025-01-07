@@ -256,7 +256,9 @@ wsl --install -d Ubuntu-22.04
 ```
 
 #### 4. Benutzername und Passwort festlegen:
-Während des Installationsprozesses wird ein Benutzername und ein Passwort für die zukünftige Verwendung mit **"sudo"**-Befehlen benötigt.
+Während des Installationsprozesses wird ein Benutzername und ein Passwort für die zukünftige Verwendung mit **"sudo"**-Befehlen benötigt:
+
+<img src="https://github.com/user-attachments/assets/bc178d9f-779e-49fa-befb-3e0e41385153" width="500">
 
 #### 5. System aktualisieren:
 Die Paketlisten werden aktualisiert und ein System-Upgrade durchgeführt, um sicherzustellen, dass alle Pakete auf dem neuesten Stand sind:
