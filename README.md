@@ -124,9 +124,7 @@ sudo reboot
 ```
 ### Nutzung von Thonny
 Thonny ist eine benutzerfreundliche Entwicklungsumgebung für Python, die sich ideal für Projekte wie die Objekterkennung mit YOLO auf dem Raspberry Pi eignet. Sie ermöglicht das Arbeiten in virtuellen Umgebungen (venv), wodurch Skripte sicher getestet und ausgeführt werden können, ohne das Hauptsystem des Raspberry Pi zu beeinträchtigen. Dies erleichtert die Entwicklung direkt auf der Plattform. 
-
 Innerhalb von Thonny kann die entsprechende virtuelle Umgebung ausgewählt werden.
-Dadurch bleiben alle Skripte und Pakete des Projekts in der isolierten Umgebung und beeinflussen nicht das globale System.
 
 Im folgenden Video wird gezeigt, wie die Verknüpfung von Thonny mit der venv eingerichtet wird:
 
