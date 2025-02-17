@@ -744,7 +744,8 @@ if __name__ == "__main__":
 Zum Starten des Modells wird der folgende Befehl ausgeführt:
 
 ```bash
-python basic_pipelines/bauklotz-detection.py --labels-json resources/bauklotz-labels.json --hef resources/yolov8s-hailo8l-barcode.hef --input -rpi
+python basic_pipelines/bauklotz_detection.py --labels-json resources/bauklotz-labels.json --hef resources/yolov8s-hailo8l-barcode.hef --i -rpi
+
 ```
 
 Der Parameter **--input rpi** gibt an, dass die angeschlossene Raspberry Pi Camera Module 3 Kamera als Eingabequelle verwendet wird. Um weitere Optionen oder Ausgaben, die mit dem Skript detection.py verfügbar sind, zu erkunden, kann folgender Befehl ausgeführt werden:
